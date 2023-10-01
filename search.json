@@ -9,9 +9,37 @@
   {
     "objectID": "posts/welcome/index.html",
     "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
+    "title": "Hello, Quarto",
     "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+    "text": "In this post, we’ll get set up with Quarto.\nQuarto is a static site converter, which you can use to turn plaintext documents into attractive webpages. You should have already installed Quarto and signed up for Quarto Pub when completing the software installation (details in BruinLearn)."
+  },
+  {
+    "objectID": "posts/welcome/index.html#make-a-blog",
+    "href": "posts/welcome/index.html#make-a-blog",
+    "title": "Hello, Quarto",
+    "section": "Make a blog",
+    "text": "Make a blog\nThis should be very straightforward using the instructions at this link.\nAll you need to do is run the following code at the terminal.\nquarto create-project myblog --type website:blog\nThen once a folder appears, run this line.\nquarto preview myblog\nFeel free to replace myblog with a different name.\nquarto preview should open up a link that looks like http://localhost:6832 in your web browser. The port number probably looks different."
+  },
+  {
+    "objectID": "posts/welcome/index.html#publish-on-quarto-pub",
+    "href": "posts/welcome/index.html#publish-on-quarto-pub",
+    "title": "Hello, Quarto",
+    "section": "Publish on Quarto Pub",
+    "text": "Publish on Quarto Pub\nNow, run this line on your terminal in the same directory.\nquarto publish myblog\nWhen prompted, select these options.\n? Provider: › Quarto Pub\n? Authorize (Y/n) › Yes\nFinally, the terminal should print out something like this:\n[✓] Creating quarto-pub site\n[✓] Preparing to publish site\n[✓] Uploading files (complete)\n[✓] Deploying published site\n[✓] Published site: https://quartopub.com/sites/[...]\n[✓] Account site updated: https://[Quarto Pub username].quarto.pub\nGo to the website on the last line, and if you see a webpage there, congrats! Your blog is up and running. At the moment, it’s just a copy of the template, so it’s not personalized in any way."
+  },
+  {
+    "objectID": "posts/welcome/index.html#edit-a-post",
+    "href": "posts/welcome/index.html#edit-a-post",
+    "title": "Hello, Quarto",
+    "section": "Edit a post",
+    "text": "Edit a post\nPreview your blog again:\nquarto preview myblog\nThen edit the welcome page in posts/welcome/index.qmd. Any sort of change will do.\nOnce you save the file, you’ll see that the preview page on the web browser is automatically updated.\nYou can also add a new page following instructions in this post."
+  },
+  {
+    "objectID": "posts/welcome/index.html#publish-again",
+    "href": "posts/welcome/index.html#publish-again",
+    "title": "Hello, Quarto",
+    "section": "Publish again",
+    "text": "Publish again\nOnce you’ve made all these additions, publish the result again using quarto publish. In a few minutes, you should see your new post on your website."
   },
   {
     "objectID": "posts/post-with-code/index.html",
@@ -25,6 +53,6 @@
     "href": "index.html",
     "title": "PIC16B-23F",
     "section": "",
-    "text": "Post With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nSep 28, 2023\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "Post With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nHello, Quarto\n\n\n\n\n\n\n\nWeek 0\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\nSeyoon Ko\n\n\n\n\n\n\nNo matching items"
   }
 ]
