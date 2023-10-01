@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Seyoon Ko">
 <meta name="dcterms.date" content="2023-10-01">
 
 <title>PIC16B-23F - Hello, Quarto</title>
@@ -100,7 +99,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -152,12 +151,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
   <div class="quarto-title-meta">
 
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Seyoon Ko </p>
-            </div>
-    </div>
       
       <div>
       <div class="quarto-title-meta-heading">Published</div>
@@ -173,7 +166,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#make-a-blog" id="toc-make-a-blog" class="nav-link active" data-scroll-target="#make-a-blog">Make a blog</a></li>
+  <li><a href="#publish-on-quarto-pub" id="toc-publish-on-quarto-pub" class="nav-link" data-scroll-target="#publish-on-quarto-pub">Publish on Quarto Pub</a></li>
+  <li><a href="#edit-a-post" id="toc-edit-a-post" class="nav-link" data-scroll-target="#edit-a-post">Edit a post</a></li>
+  <li><a href="#publish-again" id="toc-publish-again" class="nav-link" data-scroll-target="#publish-again">Publish again</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -214,13 +218,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview myblog</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Then edit the welcome page in <code>posts/welcome/index.qmd</code>. Any sort of change will do.</p>
 <p>Once you save the file, you’ll see that the preview page on the web browser is automatically updated.</p>
-<p>You can also add a new page following instructions in <a href="about:blank">this post</a>.</p>
+<p>You can also add a new page following instructions in <a href="../composing">this post</a>.</p>
 </section>
 <section id="publish-again" class="level2">
 <h2 class="anchored" data-anchor-id="publish-again">Publish again</h2>
 <p>Once you’ve made all these additions, publish the result again using <code>quarto publish</code>. In a few minutes, you should see your new post on your website.</p>
-<!--![](thumbnail.jpg)-->
-<!--Since this post doesn't specify an explicit `image`, the first image in the post will be used in the listing page of posts.-->
 
 
 </section>

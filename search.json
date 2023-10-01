@@ -42,17 +42,59 @@
     "text": "Publish again\nOnce you’ve made all these additions, publish the result again using quarto publish. In a few minutes, you should see your new post on your website."
   },
   {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
+    "objectID": "posts/composing/index.html",
+    "href": "posts/composing/index.html",
+    "title": "Creating Posts",
     "section": "",
-    "text": "This is a post with executable code."
+    "text": "How to create technical posts that include Python code, explanatory text, and notes."
+  },
+  {
+    "objectID": "posts/composing/index.html#directory",
+    "href": "posts/composing/index.html#directory",
+    "title": "Creating Posts",
+    "section": "Directory",
+    "text": "Directory\nYour posts should be placed in the posts/ directory of your website.\nIf you want to make a new page called bruin, then create a new folder named bruin/ inside posts/. For example:\nposts\n└───composing \n└───bruin &lt; new folder\n└───quarto\n└───software\n└───welcome"
+  },
+  {
+    "objectID": "posts/composing/index.html#create-the-file",
+    "href": "posts/composing/index.html#create-the-file",
+    "title": "Creating Posts",
+    "section": "Create the File",
+    "text": "Create the File\nYou have two options with the folder bruin/.\nOption 1: Add a Jupyter Notebook named index.ipynb Since your homework posts will be based on previous work you did in a Jupyter notebook or Google colab, this will probably be the easier option for publishing homeworks.\nOption 2: Add a index.qmd text file But this is probably a better option for your group project blog post, and once you (hopefully) continue to build up your portfolio using this website.\nFor either options, make sure to add a header that looks like this to the top:\n---\ntitle: \"Creating posts\"\nauthor: \"Seyoon\"\ndate: \"2022-12-24\"\ncategories: [week 0, example]\n---\nIn Jupyter notebook, this header should be in a raw cell up top."
+  },
+  {
+    "objectID": "posts/composing/index.html#markdown-styling",
+    "href": "posts/composing/index.html#markdown-styling",
+    "title": "Creating Posts",
+    "section": "Markdown Styling",
+    "text": "Markdown Styling\nYou can use Markdown to style basic text, much as you do in Jupyter Notebooks.\nLook into Quarto’s Markdown basics, Figures and Tables. You’re welcome to explore other pages that cover more complex concepts like Diagrams, Videos, and Callout Blocks."
+  },
+  {
+    "objectID": "posts/composing/index.html#math",
+    "href": "posts/composing/index.html#math",
+    "title": "Creating Posts",
+    "section": "Math",
+    "text": "Math\nIf you are familiar with the \\[\\latex\\] typesetting system, you can use many standard commands by enclosing them in double $ symbols. You can make both inline math like \\[\nf(x) = e^x\n\\] and display math like \\[\n\\sum_{i=1}^\\infty \\frac{1}{i^2} = \\frac{\\pi^2}{6}.\n\\]"
+  },
+  {
+    "objectID": "posts/composing/index.html#images",
+    "href": "posts/composing/index.html#images",
+    "title": "Creating Posts",
+    "section": "Images",
+    "text": "Images\nYou can and should include images in your posts, especially in cases where you have created a data visualization. If the image is already available online, you can link to it using the syntax ![alt text](image_url):  (Source: https://xkcd.com/353/)"
+  },
+  {
+    "objectID": "posts/composing/index.html#code",
+    "href": "posts/composing/index.html#code",
+    "title": "Creating Posts",
+    "section": "Code",
+    "text": "Code\nThere are two main ways to insert code in your posts. When talking about a short concept, like the np.random.rand() function, you can type back ticks like this: `np.random.rand()`.\nTo create a larger block of code, use three consecutive backticks ``` to both open and close the code block. If you place the word “{python}” immediately after the opening code blocks, you’ll get attractive syntax highlighting:\n\ndef f(x):\n    \"\"\"\n    A cool function that multiples an input x by 2. \n    \"\"\"\n    return 2*x\n\ny = f(3)\nprint(y)\n\n6\n\n\nNot only that, once you render the page with Quarto, the code output will show up below. If that’s not what you want, use the word “python” instead of “{python}”\nLook at this other cool example from the Quarto tutorial.\nFor a demonstration of a line plot on a polar axis, see Figure 1.\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\n\n\n\nFigure 1: A line plot on a polar axis"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "PIC16B-23F",
     "section": "",
-    "text": "Post With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nHello, Quarto\n\n\n\n\n\n\n\nWeek 0\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\nSeyoon Ko\n\n\n\n\n\n\nNo matching items"
+    "text": "Creating Posts\n\n\n\n\n\n\n\nWeek 0\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHello, Quarto\n\n\n\n\n\n\n\nWeek 0\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\n\n\n\n\nNo matching items"
   }
 ]
