@@ -116,14 +116,14 @@
     "href": "posts/composing/index.html#math",
     "title": "Creating Posts",
     "section": "Math",
-    "text": "Math\nIf you are familiar with the \\[\\latex\\] typesetting system, you can use many standard commands by enclosing them in double $ symbols. You can make both inline math like \\[\nf(x) = e^x\n\\] and display math like \\[\n\\sum_{i=1}^\\infty \\frac{1}{i^2} = \\frac{\\pi^2}{6}.\n\\]"
+    "text": "Math\nIf you are familiar with the \\[\\LaTeX\\] typesetting system, you can use many standard commands by enclosing them in double $ symbols. You can make both inline math like \\[\nf(x) = e^x\n\\] and display math like \\[\n\\sum_{i=1}^\\infty \\frac{1}{i^2} = \\frac{\\pi^2}{6}.\n\\]"
   },
   {
     "objectID": "posts/composing/index.html#images",
     "href": "posts/composing/index.html#images",
     "title": "Creating Posts",
     "section": "Images",
-    "text": "Images\nYou can and should include images in your posts, especially in cases where you have created a data visualization. If the image is already available online, you can link to it using the syntax ![alt text](image_url):  (Source: https://xkcd.com/353/)"
+    "text": "Images\nYou can and should include images in your posts, especially in cases where you have created a data visualization. If the image is already available online, you can link to it using the syntax ![alt text](image_url):\n\n(Source: https://xkcd.com/353/)"
   },
   {
     "objectID": "posts/composing/index.html#code",
