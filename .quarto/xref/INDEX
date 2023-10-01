@@ -10,5 +10,14 @@
   },
   "about.qmd": {
     "about.html": "562ab4f7"
+  },
+  "posts/quarto/index.qmd": {
+    "index.html": "40518e78"
+  },
+  "posts/composing/index.qmd": {
+    "index.html": "ddf639a5"
+  },
+  "posts/hw0/index.qmd": {
+    "index.html": "6c16b990"
   }
 }

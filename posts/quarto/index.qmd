@@ -1,0 +1,73 @@
+---
+title: "Hello, Quarto"
+date: "2023-10-01"
+image: "quarto.png"
+categories: [Week 0]
+---
+
+In this post, we’ll get set up with [Quarto](https://quarto.org/).
+
+Quarto is a static site converter, which you can use to turn plaintext documents into attractive webpages. You should have already installed Quarto and signed up for Quarto Pub when completing the software installation (details in BruinLearn).
+
+## Make a blog
+
+This should be very straightforward using the instructions at [this link](https://quarto.org/docs/websites/website-blog.html#quick-start).
+
+All you need to do is run the following code at the terminal.
+
+```bash
+quarto create-project myblog --type website:blog
+```
+
+Then once a folder appears, run this line.
+
+```bash
+quarto preview myblog
+```
+
+Feel free to replace `myblog` with a different name.
+
+`quarto preview` should open up a link that looks like `http://localhost:6832` in your web browser. The port number probably looks different.
+
+## Publish on Quarto Pub
+
+Now, run this line on your terminal in the same directory.
+
+```bash
+quarto publish myblog
+```
+
+When prompted, select these options.
+
+    ? Provider: › Quarto Pub
+    ? Authorize (Y/n) › Yes
+
+Finally, the terminal should print out something like this:
+
+    [✓] Creating quarto-pub site
+    [✓] Preparing to publish site
+    [✓] Uploading files (complete)
+    [✓] Deploying published site
+    [✓] Published site: https://quartopub.com/sites/[...]
+    [✓] Account site updated: https://[Quarto Pub username].quarto.pub
+
+Go to the website on the last line, and if you see a webpage there, congrats! Your blog is up and running. At the moment, it’s just a copy of the template, so it’s not personalized in any way.
+
+## Edit a post
+Preview your blog again:
+
+```bash
+quarto preview myblog
+```
+
+Then edit the welcome page in `posts/welcome/index.qmd`. Any sort of change will do.
+
+Once you save the file, you’ll see that the preview page on the web browser is automatically updated.
+
+You can also add a new page following instructions in [this post](../composing).
+
+## Publish again
+Once you’ve made all these additions, publish the result again using `quarto publish`. In a few minutes, you should see your new post on your website.
+
+
+

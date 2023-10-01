@@ -4,27 +4,139 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this blog"
+    "text": "PIC 16B - 2023 Fall Blog"
   },
   {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
+    "objectID": "posts/quarto/index.html",
+    "href": "posts/quarto/index.html",
+    "title": "Hello, Quarto",
     "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+    "text": "In this post, we’ll get set up with Quarto.\nQuarto is a static site converter, which you can use to turn plaintext documents into attractive webpages. You should have already installed Quarto and signed up for Quarto Pub when completing the software installation (details in BruinLearn)."
   },
   {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
+    "objectID": "posts/quarto/index.html#make-a-blog",
+    "href": "posts/quarto/index.html#make-a-blog",
+    "title": "Hello, Quarto",
+    "section": "Make a blog",
+    "text": "Make a blog\nThis should be very straightforward using the instructions at this link.\nAll you need to do is run the following code at the terminal.\nquarto create-project myblog --type website:blog\nThen once a folder appears, run this line.\nquarto preview myblog\nFeel free to replace myblog with a different name.\nquarto preview should open up a link that looks like http://localhost:6832 in your web browser. The port number probably looks different."
+  },
+  {
+    "objectID": "posts/quarto/index.html#publish-on-quarto-pub",
+    "href": "posts/quarto/index.html#publish-on-quarto-pub",
+    "title": "Hello, Quarto",
+    "section": "Publish on Quarto Pub",
+    "text": "Publish on Quarto Pub\nNow, run this line on your terminal in the same directory.\nquarto publish myblog\nWhen prompted, select these options.\n? Provider: › Quarto Pub\n? Authorize (Y/n) › Yes\nFinally, the terminal should print out something like this:\n[✓] Creating quarto-pub site\n[✓] Preparing to publish site\n[✓] Uploading files (complete)\n[✓] Deploying published site\n[✓] Published site: https://quartopub.com/sites/[...]\n[✓] Account site updated: https://[Quarto Pub username].quarto.pub\nGo to the website on the last line, and if you see a webpage there, congrats! Your blog is up and running. At the moment, it’s just a copy of the template, so it’s not personalized in any way."
+  },
+  {
+    "objectID": "posts/quarto/index.html#edit-a-post",
+    "href": "posts/quarto/index.html#edit-a-post",
+    "title": "Hello, Quarto",
+    "section": "Edit a post",
+    "text": "Edit a post\nPreview your blog again:\nquarto preview myblog\nThen edit the welcome page in posts/welcome/index.qmd. Any sort of change will do.\nOnce you save the file, you’ll see that the preview page on the web browser is automatically updated.\nYou can also add a new page following instructions in this post."
+  },
+  {
+    "objectID": "posts/quarto/index.html#publish-again",
+    "href": "posts/quarto/index.html#publish-again",
+    "title": "Hello, Quarto",
+    "section": "Publish again",
+    "text": "Publish again\nOnce you’ve made all these additions, publish the result again using quarto publish. In a few minutes, you should see your new post on your website."
+  },
+  {
+    "objectID": "posts/hw0/index.html",
+    "href": "posts/hw0/index.html",
+    "title": "Homework 0",
     "section": "",
-    "text": "This is a post with executable code."
+    "text": "In this blog post assignment, you’ll create a short post for your new website. The primary purpose is to give you some practice working with Quarto blogging with Python code.\nMake sure to check the “Specifications” section at the bottom of this assignment for an explicit list of criteria that your blog post must meet in order to receive credit."
+  },
+  {
+    "objectID": "posts/hw0/index.html#complete-the-hello-quarto-activity",
+    "href": "posts/hw0/index.html#complete-the-hello-quarto-activity",
+    "title": "Homework 0",
+    "section": "1. Complete the Hello, Quarto activity",
+    "text": "1. Complete the Hello, Quarto activity\nYour first step should be to complete the Hello Quarto activity to help you get familiar with blogging with Quarto. If you already completed this activity in Discussion, then you can skip to the next step.\nIf you haven’t done so already, now is a good time to modify your site. Look around the site’s files and see if you can figure out how to modify the About page and the blog’s title from about.qmd and _quarto.yml.\nSee these pages for help: about page, config options.\nIf you are comfortable with css, then you can directly modify style.css and other files in the repo.\nAll this is optional, and it’s not necessary to put your real name or real photo anywhere on the site."
+  },
+  {
+    "objectID": "posts/hw0/index.html#create-a-post",
+    "href": "posts/hw0/index.html#create-a-post",
+    "title": "Homework 0",
+    "section": "2. Create a post",
+    "text": "2. Create a post\nCreate a simple blog post, using the instructions and demonstrations here. Here is the prompt for your post:\n\nWrite a tutorial explaining how to construct an interesting data visualization of the Palmer Penguins data set.\n\nYou can read the data into Python by running:\nimport pandas as pd\nurl = \"https://raw.githubusercontent.com/PhilChodrow/PIC16B/master/datasets/palmer_penguins.csv\"\npenguins = pd.read_csv(url)\nYour visualization does not have to be complex or fancy, but it should be highly readable and appropriately labeled.\nYour post should include the image directly under the code that generates it, as demonstrated here.\nThere will be two Gradescope assignments open for submission, one for PDF, and the other for code portion (as a programming assignment). You have to submit both of them for your homework to be graded.\n\nFor the PDF assingment, please submit your newly-created blog page printed as PDF. You do not need to publish your blog to the web for the homework. It is enough to print the preview page as a PDF and submit on Gradescope. If you want to publish it online, you are welcome to do so.\nFor the programming assignment, please submit any code file you wrote for your homework. All the .py file, .ipynb file, or .qmd files all included. The grader should be able to reproduce your result from the code portion you submitted.\n\n\nHint\nThe easiest way to create a post like this is to solve the problem in a Jupyter Notebook or Python script first, and then transfer the results over to your blog."
+  },
+  {
+    "objectID": "posts/hw0/index.html#coding-problem",
+    "href": "posts/hw0/index.html#coding-problem",
+    "title": "Homework 0",
+    "section": "Coding Problem",
+    "text": "Coding Problem\n\nThe plot is readable and contains axis labels, a title, and a legend if appropriate."
+  },
+  {
+    "objectID": "posts/hw0/index.html#style-and-documentation",
+    "href": "posts/hw0/index.html#style-and-documentation",
+    "title": "Homework 0",
+    "section": "Style and Documentation",
+    "text": "Style and Documentation\n\nRepeated operations should be enclosed in functions.\nFor-loops are minimized by making full use of vectorized operations for Numpy arrays and Pandas data frames.\nHelpful comments are supplied throughout the code. Docstrings are supplied for any functions and classes you define."
+  },
+  {
+    "objectID": "posts/hw0/index.html#writing",
+    "href": "posts/hw0/index.html#writing",
+    "title": "Homework 0",
+    "section": "Writing",
+    "text": "Writing\n\nThe overall post is written in engaging and unambiguous English prose. There is written explanation throughout the post, such that a PIC16A student could learn to perform the demonstrated tasks by reading the post.\nEach block of code has a clearly-explained purpose.\nThe post is organized into clearly delimited sections using markdown headers (#), making it easier for the reader to navigate."
+  },
+  {
+    "objectID": "posts/composing/index.html",
+    "href": "posts/composing/index.html",
+    "title": "Creating Posts",
+    "section": "",
+    "text": "How to create technical posts that include Python code, explanatory text, and notes."
+  },
+  {
+    "objectID": "posts/composing/index.html#directory",
+    "href": "posts/composing/index.html#directory",
+    "title": "Creating Posts",
+    "section": "Directory",
+    "text": "Directory\nYour posts should be placed in the posts/ directory of your website.\nIf you want to make a new page called bruin, then create a new folder named bruin/ inside posts/. For example:\nposts\n└───composing \n└───bruin &lt; new folder\n└───quarto\n└───software\n└───welcome"
+  },
+  {
+    "objectID": "posts/composing/index.html#create-the-file",
+    "href": "posts/composing/index.html#create-the-file",
+    "title": "Creating Posts",
+    "section": "Create the File",
+    "text": "Create the File\nYou have two options with the folder bruin/.\nOption 1: Add a Jupyter Notebook named index.ipynb Since your homework posts will be based on previous work you did in a Jupyter notebook or Google colab, this will probably be the easier option for publishing homeworks.\nOption 2: Add a index.qmd text file But this is probably a better option for your group project blog post, and once you (hopefully) continue to build up your portfolio using this website.\nFor either options, make sure to add a header that looks like this to the top:\n---\ntitle: \"Creating posts\"\nauthor: \"Seyoon\"\ndate: \"2022-12-24\"\ncategories: [week 0, example]\n---\nIn Jupyter notebook, this header should be in a raw cell up top."
+  },
+  {
+    "objectID": "posts/composing/index.html#markdown-styling",
+    "href": "posts/composing/index.html#markdown-styling",
+    "title": "Creating Posts",
+    "section": "Markdown Styling",
+    "text": "Markdown Styling\nYou can use Markdown to style basic text, much as you do in Jupyter Notebooks.\nLook into Quarto’s Markdown basics, Figures and Tables. You’re welcome to explore other pages that cover more complex concepts like Diagrams, Videos, and Callout Blocks."
+  },
+  {
+    "objectID": "posts/composing/index.html#math",
+    "href": "posts/composing/index.html#math",
+    "title": "Creating Posts",
+    "section": "Math",
+    "text": "Math\nIf you are familiar with the \\[\\latex\\] typesetting system, you can use many standard commands by enclosing them in double $ symbols. You can make both inline math like \\[\nf(x) = e^x\n\\] and display math like \\[\n\\sum_{i=1}^\\infty \\frac{1}{i^2} = \\frac{\\pi^2}{6}.\n\\]"
+  },
+  {
+    "objectID": "posts/composing/index.html#images",
+    "href": "posts/composing/index.html#images",
+    "title": "Creating Posts",
+    "section": "Images",
+    "text": "Images\nYou can and should include images in your posts, especially in cases where you have created a data visualization. If the image is already available online, you can link to it using the syntax ![alt text](image_url):  (Source: https://xkcd.com/353/)"
+  },
+  {
+    "objectID": "posts/composing/index.html#code",
+    "href": "posts/composing/index.html#code",
+    "title": "Creating Posts",
+    "section": "Code",
+    "text": "Code\nThere are two main ways to insert code in your posts. When talking about a short concept, like the np.random.rand() function, you can type back ticks like this: `np.random.rand()`.\nTo create a larger block of code, use three consecutive backticks ``` to both open and close the code block. If you place the word “{python}” immediately after the opening code blocks, you’ll get attractive syntax highlighting:\n\ndef f(x):\n    \"\"\"\n    A cool function that multiples an input x by 2. \n    \"\"\"\n    return 2*x\n\ny = f(3)\nprint(y)\n\n6\n\n\nNot only that, once you render the page with Quarto, the code output will show up below. If that’s not what you want, use the word “python” instead of “{python}”\nLook at this other cool example from the Quarto tutorial.\nFor a demonstration of a line plot on a polar axis, see Figure 1.\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\n\n\n\nFigure 1: A line plot on a polar axis"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "PIC16B-23F",
     "section": "",
-    "text": "Post With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nSep 28, 2023\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "Homework 0\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nOct 2, 2023\n\n\n\n\n\n\n  \n\n\n\n\nCreating Posts\n\n\n\n\n\n\n\nWeek 0\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHello, Quarto\n\n\n\n\n\n\n\nWeek 0\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\n\n\n\n\nNo matching items"
   }
 ]
