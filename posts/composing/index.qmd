@@ -58,8 +58,10 @@ $$
 
 ## Images
 You can and should include images in your posts, especially in cases where you have created a data visualization. If the image is already available online, you can link to it using the syntax `![alt text](image_url)`:
+
 ![](https://imgs.xkcd.com/comics/python.png)
-(Source: https://xkcd.com/353/)
+
+(Source: [https://xkcd.com/353/](https://xkcd.com/353))
 
 ## Code
 There are two main ways to insert code in your posts. When talking about a short concept, like the `np.random.rand()` function, you can type back ticks like this: \`np.random.rand()\`.
