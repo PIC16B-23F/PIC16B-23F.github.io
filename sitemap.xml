@@ -2,22 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://PIC16B-23F.github.io/about.html</loc>
-    <lastmod>2023-10-05T04:44:25.287Z</lastmod>
+    <lastmod>2023-10-07T16:58:11.947Z</lastmod>
   </url>
   <url>
     <loc>https://PIC16B-23F.github.io/posts/quarto/index.html</loc>
-    <lastmod>2023-10-05T04:44:24.770Z</lastmod>
+    <lastmod>2023-10-07T16:58:11.411Z</lastmod>
   </url>
   <url>
     <loc>https://PIC16B-23F.github.io/posts/hw0/index.html</loc>
-    <lastmod>2023-10-05T04:44:23.550Z</lastmod>
+    <lastmod>2023-10-07T16:58:10.176Z</lastmod>
+  </url>
+  <url>
+    <loc>https://PIC16B-23F.github.io/posts/hw1/index.html</loc>
+    <lastmod>2023-10-07T16:58:09.872Z</lastmod>
   </url>
   <url>
     <loc>https://PIC16B-23F.github.io/posts/composing/index.html</loc>
-    <lastmod>2023-10-05T04:44:24.518Z</lastmod>
+    <lastmod>2023-10-07T16:58:11.173Z</lastmod>
   </url>
   <url>
     <loc>https://PIC16B-23F.github.io/index.html</loc>
-    <lastmod>2023-10-05T04:44:25.084Z</lastmod>
+    <lastmod>2023-10-07T16:58:11.749Z</lastmod>
   </url>
 </urlset>
