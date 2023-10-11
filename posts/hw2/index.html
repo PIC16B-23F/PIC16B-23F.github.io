@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-10-02">
+<meta name="dcterms.date" content="2023-10-14">
 
-<title>PIC16B-23F - Homework 0</title>
+<title>PIC16B-23F - Homework 2: Web Scraping</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -141,7 +141,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Homework 0</h1>
+      <h1 class="title">Homework 2: Web Scraping</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">Homework</div>
               </div>
@@ -155,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 2, 2023</p>
+        <p class="date">October 14, 2023</p>
       </div>
     </div>
     
@@ -173,15 +173,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#instructions" id="toc-instructions" class="nav-link active" data-scroll-target="#instructions">Instructions</a>
   <ul class="collapse">
-  <li><a href="#complete-the-hello-quarto-activity" id="toc-complete-the-hello-quarto-activity" class="nav-link" data-scroll-target="#complete-the-hello-quarto-activity">1. Complete the Hello, Quarto activity</a></li>
-  <li><a href="#create-a-post" id="toc-create-a-post" class="nav-link" data-scroll-target="#create-a-post">2. Create a post</a>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">1. Setup</a>
   <ul class="collapse">
-  <li><a href="#hint" id="toc-hint" class="nav-link" data-scroll-target="#hint">Hint</a></li>
+  <li><a href="#locate-the-starting-tmdb-page" id="toc-locate-the-starting-tmdb-page" class="nav-link" data-scroll-target="#locate-the-starting-tmdb-page">1.1. Locate the Starting TMDB Page</a></li>
+  <li><a href="#dry-run-navigation" id="toc-dry-run-navigation" class="nav-link" data-scroll-target="#dry-run-navigation">1.2. Dry-Run Navigation</a></li>
+  <li><a href="#initialize-your-project" id="toc-initialize-your-project" class="nav-link" data-scroll-target="#initialize-your-project">1.3. Initialize Your Project</a></li>
+  <li><a href="#tweak-settings" id="toc-tweak-settings" class="nav-link" data-scroll-target="#tweak-settings">1.4. Tweak Settings</a></li>
   </ul></li>
+  <li><a href="#write-your-scraper" id="toc-write-your-scraper" class="nav-link" data-scroll-target="#write-your-scraper">2. Write Your Scraper</a>
+  <ul class="collapse">
+  <li><a href="#challenge" id="toc-challenge" class="nav-link" data-scroll-target="#challenge">Challenge</a></li>
+  </ul></li>
+  <li><a href="#make-your-recommendations" id="toc-make-your-recommendations" class="nav-link" data-scroll-target="#make-your-recommendations">3. Make Your Recommendations</a></li>
+  <li><a href="#blog-post" id="toc-blog-post" class="nav-link" data-scroll-target="#blog-post">4. Blog Post</a></li>
   </ul></li>
   <li><a href="#specifications" id="toc-specifications" class="nav-link" data-scroll-target="#specifications">Specifications</a>
   <ul class="collapse">
-  <li><a href="#format" id="toc-format" class="nav-link" data-scroll-target="#format">Format</a></li>
   <li><a href="#coding-problem" id="toc-coding-problem" class="nav-link" data-scroll-target="#coding-problem">Coding Problem</a></li>
   <li><a href="#style-and-documentation" id="toc-style-and-documentation" class="nav-link" data-scroll-target="#style-and-documentation">Style and Documentation</a></li>
   <li><a href="#writing" id="toc-writing" class="nav-link" data-scroll-target="#writing">Writing</a></li>
@@ -195,79 +202,134 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>In this blog post assignment, you’ll create a short post for your new website. The primary purpose is to give you some practice working with Quarto blogging with Python code.</p>
-<p>Make sure to check the “Specifications” section at the bottom of this assignment for an explicit list of criteria that your blog post must meet in order to receive credit.</p>
+<p>What’s your favorite movie or TV show? Wouldn’t it be nice to find more shows that you might like to watch, based on ones you know you like? Tools that address questions like this are often called “recommender systems.” Powerful, scalable recommender systems are behind many modern entertainment and streaming services, such as Netflix and Spotify. While most recommender systems these days involve machine learning, there are also ways to make recommendations that don’t require such complex tools.</p>
+<p>In this Blog Post, you’ll use webscraping to answer the following question:</p>
+<blockquote class="blockquote">
+<p>What movie or TV shows share actors with your favorite movie or show?</p>
+</blockquote>
+<p>The idea of this question is that, if TV show Y has many of the same actors as TV show X, and you like X, you might also enjoy Y.</p>
+<p>This post has two parts. In the first, larger part, you’ll write a webscraper for finding shared actors on TMDB. In the second, smaller part, you’ll use the results from your scraper to make recommendations.</p>
+<p>Don’t forget to check the Specifications for a complete list of what you need to do to obtain full credit. As usual, this Blog Post should be printed as PDF from your PIC16B Blog preview screen, and you need to submit any code you wrote as well.</p>
 <section id="instructions" class="level1">
 <h1>Instructions</h1>
-<p>To complete this homework assignment, you’ll need to have completed installations of Anaconda, GitHub Desktop, and Quarto as described in the instruction in BruinLearn.</p>
-<section id="complete-the-hello-quarto-activity" class="level2">
-<h2 class="anchored" data-anchor-id="complete-the-hello-quarto-activity">1. Complete the Hello, Quarto activity</h2>
-<p>Your first step should be to complete the <a href="../quarto">Hello Quarto</a> activity to help you get familiar with blogging with Quarto. If you already completed this activity in Discussion, then you can skip to the next step.</p>
-<p>If you haven’t done so already, now is a good time to modify your site. Look around the site’s files and see if you can figure out how to modify the <code>About</code> page and the blog’s title from <code>about.qmd</code> and <code>_quarto.yml</code>.</p>
-<p>See these pages for help: <a href="https://quarto.org/docs/websites/website-about.html">about page</a>, <a href="https://quarto.org/docs/reference/projects/websites.html">config options</a>.</p>
-<p>If you are comfortable with <code>css</code>, then you can directly modify <code>style.css</code> and other files in the repo.</p>
-<p>All this is optional, and it’s not necessary to put your real name or real photo anywhere on the site.</p>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">1. Setup</h2>
+<section id="locate-the-starting-tmdb-page" class="level3">
+<h3 class="anchored" data-anchor-id="locate-the-starting-tmdb-page">1.1. Locate the Starting TMDB Page</h3>
+<p>Pick your favorite movie or TV show, and locate its TMDB page by searching on <a href="https://www.themoviedb.org/">https://www.themoviedb.org/</a>. For example, my favorite movie is Harry Potter and the <del>Sorcerer’s</del>Philosopher’s Stone. Its TMDB page is at:</p>
+<pre><code>https://www.themoviedb.org/movie/671-harry-potter-and-the-philosopher-s-stone/</code></pre>
+<p>Save this URL for a moment.</p>
 </section>
-<section id="create-a-post" class="level2">
-<h2 class="anchored" data-anchor-id="create-a-post">2. Create a post</h2>
-<p>Create a simple blog post, using the instructions and demonstrations <a href="../composing/">here</a>. Here is the prompt for your post:</p>
-<blockquote class="blockquote">
-<p>Write a tutorial explaining how to construct an interesting data visualization of the <a href="https://github.com/allisonhorst/palmerpenguins">Palmer Penguins</a> data set.</p>
-</blockquote>
-<p>You can read the data into Python by running:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/PhilChodrow/PIC16B/master/datasets/palmer_penguins.csv"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> pd.read_csv(url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Your visualization does not have to be complex or fancy, but it should be highly readable and appropriately labeled.</p>
-<p>Your post should include the image directly under the code that generates it, as demonstrated <a href="../composing">here</a>.</p>
-<p>There will be <strong>two Gradescope assignments</strong> open for submission, one for <strong>PDF</strong>, and the other for <strong>code portion (as a programming assignment)</strong>. You have to submit <strong>both</strong> of them for your homework to be graded.</p>
+<section id="dry-run-navigation" class="level3">
+<h3 class="anchored" data-anchor-id="dry-run-navigation">1.2. Dry-Run Navigation</h3>
+<p>Now, we’re just going to practice clicking through the navigation steps that our scraper will take.</p>
+<p>First, click on the <em>Full Cast &amp; Crew</em> link. This will take you to a page with URL of the form</p>
+<pre><code>&lt;original_url&gt;cast/</code></pre>
+<p>Next, scroll until you see the <em>Cast</em> section. Click on the portrait of one of the actors. This will take you to a page with a different-looking URL. For example, the URL for Alan Rickman, who played Severus Snape, is</p>
+<pre><code>https://www.themoviedb.org/person/4566-alan-rickman</code></pre>
+<p>Finally, scroll down until you see the actor’s <em>Acting</em> section. Note the titles of a few movies and TV shows in this section.</p>
+<p>Our scraper is going to replicate this process. Starting with your favorite movie or TV show, it’s going to look at all the actors in that movie or TV show, and then log all the <em>other</em> movies or TV shows that they worked on.</p>
+<p>At this point, it would be a good idea for you to use the Developer Tools on your browser to inspect individual HTML elements and look for patterns among the names you are looking for.</p>
+</section>
+<section id="initialize-your-project" class="level3">
+<h3 class="anchored" data-anchor-id="initialize-your-project">1.3. Initialize Your Project</h3>
+<ol type="1">
+<li>Open a terminal and type:</li>
+</ol>
+<pre><code>conda activate PIC16B-2
+scrapy startproject TMDB_scraper
+cd TMDB_scraper</code></pre>
+<p>This will create quite a lot of files, but you don’t really need to touch most of them. <strong>However, you must submit the entire TMDB_scraper folder</strong> for the code part.</p>
+</section>
+<section id="tweak-settings" class="level3">
+<h3 class="anchored" data-anchor-id="tweak-settings">1.4. Tweak Settings</h3>
+<p>For now, add the following line to the file <code>settings.py</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>CLOSESPIDER_PAGECOUNT <span class="op">=</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This line just prevents your scraper from downloading too much data while you’re still testing things out. You’ll remove this line later.</p>
+<p><strong>Hint</strong>: Later on, you may run into <code>403 Forbidden</code> errors once the website detects that you’re a bot. See these links (<a href="https://doc.scrapy.org/en/latest/topics/practices.html#avoiding-getting-banned">link1</a>, <a href="https://scrapeops.io/python-scrapy-playbook/scrapy-403-unhandled-forbidden-error/">link2</a>, <a href="https://scrapeops.io/web-scraping-playbook/403-forbidden-error-web-scraping/">link3</a>, <a href="https://scrapingrobot.com/blog/most-common-user-agents/">link4</a>) for how to work around that issue. The easiest solution is changing one line in <code>setting.py</code>. You might see this when you run <code>scrapy shell</code> as well, so keep an eye out for <code>403</code>! Remember, you want your status to be <code>200 OK</code>.</p>
+</section>
+</section>
+<section id="write-your-scraper" class="level2">
+<h2 class="anchored" data-anchor-id="write-your-scraper">2. Write Your Scraper</h2>
+<p>Create a file inside the <code>spiders</code> directory called <code>tmdb_spider.py</code>. Add the following lines to the file:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to run </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># scrapy crawl tmdb_spider -o movies.csv</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scrapy</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TmdbSpider(scrapy.Spider):</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> <span class="st">'tmdb_spider'</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    start_urls <span class="op">=</span> [<span class="st">'https://www.themoviedb.org/movie/671-harry-potter-and-the-philosopher-s-stone/'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Replace the entry of <code>start_urls</code> with the URL corresponding to your favorite movie or TV show.</p>
+<p>Now, implement three parsing methods for the <code>TmdbSpider</code> class.</p>
 <ul>
-<li>For the PDF assingment, please submit your newly-created blog page printed as PDF. You do not need to publish your blog to the web for the homework. It is enough to print the preview page as a PDF and submit on Gradescope. If you want to publish it online, you are welcome to do so.</li>
-<li>For the programming assignment, please submit <strong>any code file you wrote for your homework</strong>. All the <code>.py</code> file, <code>.ipynb</code> file, or <code>.qmd</code> files all included. The grader should be able to reproduce your result from the code portion you submitted.</li>
+<li><code>parse(self, response)</code> should assume that you start on a movie page, and then navigate to the <em>Full Cast &amp; Crew</em> page. Remember that this page has url <code>&lt;movie_url&gt;cast</code>. (You are allowed to hardcode that part.) Once there, the <code>parse_full_credits(self,response)</code> should be called, by specifying this method in the <code>callback</code> argument to a yielded <code>scrapy.Request</code>. The <code>parse()</code> method does not return any data. This method should be no more than 5 lines of code, excluding comments and docstrings.</li>
+<li><code>parse_full_credits(self, response)</code> should assume that you start on the <em>Full Cast &amp; Crew</em> page. Its purpose is to yield a <code>scrapy.Request</code> for the page of each actor listed on the page. Crew members are not included. The yielded request should specify the method <code>parse_actor_page(self, response)</code> should be called when the actor’s page is reached. The <code>parse_full_credits()</code> method does not return any data. This method should be no more than 5 lines of code, excluding comments and docstrings.</li>
+<li><code>parse_actor_page(self, response)</code> should assume that you start on the page of an actor. It should yield a dictionary with two key-value pairs, of the form <code>{"actor" : actor_name, "movie_or_TV_name" : movie_or_TV_name}</code>. The method should yield one such dictionary for each of the movies or TV shows on which that actor has worked. Note that you will need to determine both the name of the actor and the name of each movie or TV show. This method should be no more than 15 lines of code, excluding comments and docstrings.</li>
 </ul>
-<section id="hint" class="level3">
-<h3 class="anchored" data-anchor-id="hint">Hint</h3>
-<p>The easiest way to create a post like this is to solve the problem in a Jupyter Notebook or Python script first, and then transfer the results over to your blog.</p>
+<p>Provided that these methods are correctly implemented, you can run the command</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scrapy</span> crawl tmdb_spider <span class="at">-o</span> results.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>to create a <code>.csv</code> file with a column for actors and a column for movies or TV shows.</p>
+<p>Experimentation in the <a href="https://docs.scrapy.org/en/latest/topics/shell.html">scrapy shell</a> is strongly recommended.</p>
+<section id="challenge" class="level3">
+<h3 class="anchored" data-anchor-id="challenge">Challenge</h3>
+<p>If you’re looking for a challenge, think about ways that may make your recommendations more accurate. Consider scraping the number of episodes as well or limiting the number of actors you get per show to make sure you only get the main series cast.</p>
 </section>
+</section>
+<section id="make-your-recommendations" class="level2">
+<h2 class="anchored" data-anchor-id="make-your-recommendations">3. Make Your Recommendations</h2>
+<p>Once your spider is fully written, comment out the line</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>CLOSESPIDER_PAGECOUNT <span class="op">=</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>in the <code>settings.py</code> file. Then, the command</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scrapy</span> crawl tmdb_spider <span class="at">-o</span> results.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>will run your spider and save a CSV file called <code>results.csv</code>, with columns for actor names and the movies and TV shows on which they worked.</p>
+<p>Once you’re happy with the operation of your spider, compute a sorted list with the top movies and TV shows that share actors with your favorite movie or TV show. For example, it may have two columns: one for “movie names” and “number of shared actors”.</p>
+<p>Feel free to be creative. You can show a pandas data frame, a chart using <code>matplotlib</code> or <code>plotly</code>, or any other sensible display of the results.</p>
+</section>
+<section id="blog-post" class="level2">
+<h2 class="anchored" data-anchor-id="blog-post">4. Blog Post</h2>
+<p>In your blog post, you should describe how your scraper works, as well as the results of your analysis. When describing your scraper, I recommend dividing it up into the three distinct parsing methods, and discussing them one-by-one. For example:</p>
+<blockquote class="blockquote">
+<p><em>In this blog post, I’m going to make a super cool web scraper…</em> <em>Here’s a link to my project repository…</em> <em>Here’s how we set up the project…</em></p>
+<pre><code>&lt;implementation of parse()&gt;</code></pre>
+<p><em>This method works by…</em></p>
+</blockquote>
+<blockquote class="blockquote">
+<pre><code>&lt;implementation of parse_full_credits()&gt;</code></pre>
+<p><em>To write this method, I…</em></p>
+</blockquote>
+<p>In addition to describing your scraper, your Blog Post should include a table or visualization of numbers of shared actors.</p>
+<p>Remember that this post is still a tutorial, in which you guide your reader through the process of setting up and running the scraper. Don’t forget to tell them how to create the project and run the scraper!</p>
 </section>
 </section>
 <section id="specifications" class="level1">
 <h1>Specifications</h1>
-<section id="format" class="level2">
-<h2 class="anchored" data-anchor-id="format">Format</h2>
-<ol start="0" type="1">
-<li><strong>You have to submit the PDF-printed version of your Quarto blog</strong>. Anything else will receive “In Progress” grade at best, incuding:</li>
-</ol>
-<ul>
-<li>Jupyter notebook or JupyterLab screen printed</li>
-<li>HTML-converted Jupyter notebook printed</li>
-<li>PDF-converted Jupyter notebook or JupyterLab</li>
-<li>PDF generated directly from Quarto</li>
-</ul>
-<ol start="0" type="1">
-<li>You have to submit code necessary to reproduce your results.</li>
-</ol>
-</section>
 <section id="coding-problem" class="level2">
 <h2 class="anchored" data-anchor-id="coding-problem">Coding Problem</h2>
 <ol type="1">
-<li>The plot is readable and contains axis labels, a title, and a legend if appropriate.</li>
+<li>Each of the three parsing methods appear logically and correctly implemented.</li>
+<li><code>parse()</code> is implemented in no more than 5 lines.</li>
+<li><code>parse_full_credits()</code> is implemented in no more than 5 lines.</li>
+<li><code>parse_actor_page()</code> is implemented in no more than 15 lines.</li>
+<li>A table or list of results or pandas dataframe is shown.</li>
+<li>A visualization with <code>matplotlib</code>, <code>plotly</code>, or <code>seaborn</code> is shown.</li>
 </ol>
 </section>
 <section id="style-and-documentation" class="level2">
 <h2 class="anchored" data-anchor-id="style-and-documentation">Style and Documentation</h2>
-<ol start="2" type="1">
-<li>Repeated operations should be enclosed in functions.</li>
-<li>For-loops are minimized by making full use of vectorized operations for Numpy arrays and Pandas data frames.</li>
-<li>Helpful comments are supplied throughout the code. Docstrings are supplied for any functions and classes you define.</li>
+<ol start="7" type="1">
+<li>Each of the three <code>parse</code> methods has a short docstring describing its assumptions (e.g.&nbsp;what kind of page it is meant to parse) and its effect, including navigation and data outputs.</li>
+<li>Each of the three <code>parse</code> methods has helpful comments for understanding how each chunk of code operates.</li>
 </ol>
 </section>
 <section id="writing" class="level2">
 <h2 class="anchored" data-anchor-id="writing">Writing</h2>
-<ol start="5" type="1">
-<li>The overall post is written in engaging and unambiguous English prose. There is written explanation throughout the post, such that a PIC16A student could learn to perform the demonstrated tasks by reading the post.</li>
-<li>Each block of code has a clearly-explained purpose.</li>
-<li>The post is organized into clearly delimited sections using markdown headers (<code>#</code>), making it easier for the reader to navigate.</li>
+<ol start="9" type="1">
+<li>The blog post is written in tutorial format, in engaging and clear English. Grammar and spelling errors are acceptable within reason.</li>
+<li>The blog post explains clearly how to set up the project, run the scraper, and access the results.</li>
+<li>The blog post explains how each of the three <code>parse</code> methods works.</li>
+<li>Blog post has a descriptive title.</li>
 </ol>
 
 
