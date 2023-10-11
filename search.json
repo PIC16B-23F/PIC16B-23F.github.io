@@ -140,6 +140,13 @@
     "text": "Tip\nTo properly show figures in your blog, you may need to set your plotly renderer to iframe. To do so, run the following near the top of your notebook:\nimport plotly.io as pio\npio.renderers.default=\"iframe\""
   },
   {
+    "objectID": "posts/hw1/index.html#format",
+    "href": "posts/hw1/index.html#format",
+    "title": "Homework 1: Data Wrangling and Visualization",
+    "section": "Format",
+    "text": "Format\n\nYou have to submit the PDF-printed version of your Quarto blog. Anything else will receive “In Progress” grade at best, incuding:\n\n\nJupyter notebook or JupyterLab screen printed\nHTML-converted Jupyter notebook printed\nPDF-converted Jupyter notebook or JupyterLab\nPDF generated directly from Quarto\n\n\nYou have to submit code necessary to reproduce your results."
+  },
+  {
     "objectID": "posts/hw1/index.html#coding-problem",
     "href": "posts/hw1/index.html#coding-problem",
     "title": "Homework 1: Data Wrangling and Visualization",
