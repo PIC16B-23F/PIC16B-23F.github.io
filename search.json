@@ -91,27 +91,6 @@
     "text": "Writing\n\nThe overall post is written in engaging and unambiguous English prose. There is written explanation throughout the post, such that a PIC16A student could learn to perform the demonstrated tasks by reading the post.\nEach block of code has a clearly-explained purpose.\nThe post is organized into clearly delimited sections using markdown headers (#), making it easier for the reader to navigate."
   },
   {
-    "objectID": "posts/geo-plotly/geoviz-1-preclass.html",
-    "href": "posts/geo-plotly/geoviz-1-preclass.html",
-    "title": "Examaple: Geographic Data Visualization",
-    "section": "",
-    "text": "import plotly.io as pio\npio.renderers.default=\"iframe\""
-  },
-  {
-    "objectID": "posts/geo-plotly/geoviz-1-preclass.html#creating-basemaps",
-    "href": "posts/geo-plotly/geoviz-1-preclass.html#creating-basemaps",
-    "title": "Examaple: Geographic Data Visualization",
-    "section": "Creating Basemaps",
-    "text": "Creating Basemaps\n\nimport pandas as pd\ncoords = pd.DataFrame({\n    \"lon\" : [-118.44300984639733], \n    \"lat\" : [34.0696449790177],\n    \"message\" : [\"Wish you were here\"]\n})\ncoords\n\n\n\n\n\n\n\n\nlon\nlat\nmessage\n\n\n\n\n0\n-118.44301\n34.069645\nWish you were here\n\n\n\n\n\n\n\n\nfrom plotly import express as px\n\nfig = px.scatter_mapbox(coords, \n                        lat = \"lat\",\n                        lon = \"lon\", \n                        hover_name = \"message\",\n                        zoom = 15,\n                        height = 300,\n                        mapbox_style=\"open-street-map\")\n\nfig.update_layout(margin={\"r\":0,\"t\":0,\"l\":0,\"b\":0})\nfig.show()\n\n\n\n\nLet’s break this down a bit. The first line is importing the express module of plotly.\nThe magic happens starting on the third line, when we call px.scatter_mapbox(). The first argument must be a data frame. The lat and lon arguments tell px which columns contain the latitude and longitude coordinates. The hover_name specifies what should appear when we hover over the plotted point with our mouse. zoom controls the initial zoom level of the map, which can subsequently be modified by the user. height allows one to control the aspect ratio. There are many other parameters to px.scatter_mapbox().\nThe final next two lines control which map tiles are used in the visualization and the amount of whitespace around the visualization. The final line actually displays the map.\nNow let’s try changing up the zoom level and the map tiles. The positron tiles from CartoDB are very low-contrast, which is very helpful when creating plots that use these tiles as backgrounds.\n\n# different zoom level, use cartoDB tiles\nfig = px.scatter_mapbox(coords, \n                        lat = \"lat\",\n                        lon = \"lon\", \n                        hover_name = \"message\",\n                        zoom = 18,\n                        height = 300,\n                        mapbox_style=\"carto-positron\")\n\nfig.update_layout(margin={\"r\":0,\"t\":0,\"l\":0,\"b\":0})\nfig.show()\n\n\n\n\nMaybe you dream of mountains, valleys, and beaches?\n\n# different zoom level, use Stamen Terrain tiles\nfig = px.scatter_mapbox(coords, \n                        lat = \"lat\",\n                        lon = \"lon\", \n                        hover_name = \"message\",\n                        zoom = 10,\n                        height = 300,\n                        mapbox_style=\"stamen-terrain\")\n\nfig.update_layout(margin={\"r\":0,\"t\":0,\"l\":0,\"b\":0})\nfig.show()\n\n\n\n\nSumming up, Plotly makes it unreasonably easy to create attractive, interactive maps in Python. Let’s now go from “pretty maps” to “informative, scientific data graphics.”"
-  },
-  {
-    "objectID": "posts/geo-plotly/geoviz-1-preclass.html#geographic-scatterplots",
-    "href": "posts/geo-plotly/geoviz-1-preclass.html#geographic-scatterplots",
-    "title": "Examaple: Geographic Data Visualization",
-    "section": "Geographic Scatterplots",
-    "text": "Geographic Scatterplots\nAnother thing we might want to do is color code the climate stations according to some quantitative measure. Let’s compute the average temperature in March for each one over the most recent decade, and use this to color code them.\n\ninterval = \"2011-2020\"\nurl = f\"https://raw.githubusercontent.com/PhilChodrow/PIC16B/master/datasets/noaa-ghcn/decades/{interval}.csv\"\ntemps = pd.read_csv(url)\n\nFirst we’ll compute the average in March for each station.\n\nmarch_avgs = temps.groupby(\"ID\")[[\"VALUE3\"]].mean()/100\n\nNext, we’ll merge the latitude/longitude data from the stations data frame.\n\nmarch_avgs = march_avgs.reset_index()\n\nmarch_avgs = pd.merge(march_avgs, stations, on = [\"ID\"]).dropna()\n\n\nmarch_avgs[[\"VALUE3\", \"LATITUDE\", \"LONGITUDE\"]].head()\n\n\n\n\n\n\n\n\nVALUE3\nLATITUDE\nLONGITUDE\n\n\n\n\n0\n2.740000\n57.7667\n11.8667\n\n\n1\n23.356250\n25.3330\n55.5170\n\n\n2\n23.603333\n25.6170\n55.9330\n\n\n3\n24.404000\n25.2550\n55.3640\n\n\n4\n23.956667\n24.4300\n54.4700\n\n\n\n\n\n\n\nGreat! This is the data we need. Now we can supply this data to px.scatter_mapbox, using as the value of color the name variable that we want use to shade the points.\n\nfig = px.scatter_mapbox(march_avgs,\n                        lat = \"LATITUDE\",\n                        lon = \"LONGITUDE\",\n                        hover_name = \"NAME\",\n                        color = \"VALUE3\",\n                        zoom =1,\n                        opacity = 0.2,\n                        height = 300)\n                        \nfig.update_layout(mapbox_style=\"carto-positron\")\nfig.update_layout(margin={\"r\":0,\"t\":0,\"l\":0,\"b\":0})\nfig.show()\n\n\n\n\nThis plot makes it easy to see that countries near the equator tend to be warmer (at least in March)."
-  },
-  {
     "objectID": "posts/hw1/index.html",
     "href": "posts/hw1/index.html",
     "title": "Homework 1: Data Wrangling and Visualization",
@@ -242,6 +221,6 @@
     "href": "index.html",
     "title": "PIC16B-23F",
     "section": "",
-    "text": "Examaple: Geographic Data Visualization\n\n\n\n\n\n\n\nExample\n\n\nplotly\n\n\n\n\n\n\n\n\n\n\n\nOct 7, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHomework 1: Data Wrangling and Visualization\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nOct 7, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHomework 0\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nOct 2, 2023\n\n\n\n\n\n\n  \n\n\n\n\nCreating Posts\n\n\n\n\n\n\n\nWeek 0\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHello, Quarto\n\n\n\n\n\n\n\nWeek 0\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\n\n\n\n\nNo matching items"
+    "text": "Homework 1: Data Wrangling and Visualization\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nOct 7, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHomework 0\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nOct 2, 2023\n\n\n\n\n\n\n  \n\n\n\n\nCreating Posts\n\n\n\n\n\n\n\nWeek 0\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHello, Quarto\n\n\n\n\n\n\n\nWeek 0\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\n\n\n\n\nNo matching items"
   }
 ]
