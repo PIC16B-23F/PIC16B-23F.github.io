@@ -207,7 +207,7 @@
     "href": "posts/hw1/index.html#format",
     "title": "Homework 1: Data Wrangling and Visualization",
     "section": "Format",
-    "text": "Format\n\nYou have to submit the PDF-printed version of your Quarto blog. Anything else will receive “In Progress” grade at best, incuding:\n\n\nJupyter notebook or JupyterLab screen printed\nHTML-converted Jupyter notebook printed\nPDF-converted Jupyter notebook or JupyterLab\nPDF generated directly from Quarto\n\n\nYou have to submit code necessary to reproduce your results."
+    "text": "Format\n\nYou have to submit the PDF-printed version of your Quarto blog.\nYou have to submit code necessary to reproduce your results.\n\n\nAlso, you must submit any figures generated in the HTML format."
   },
   {
     "objectID": "posts/hw1/index.html#coding-problem",
