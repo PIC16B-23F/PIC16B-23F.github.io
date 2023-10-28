@@ -247,21 +247,22 @@ cd TMDB_scraper</code></pre>
 <p>For now, add the following line to the file <code>settings.py</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>CLOSESPIDER_PAGECOUNT <span class="op">=</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This line just prevents your scraper from downloading too much data while you’re still testing things out. You’ll remove this line later.</p>
-<p><strong>Hint</strong>: Later on, you may run into <code>403 Forbidden</code> errors once the website detects that you’re a bot. See these links (<a href="https://doc.scrapy.org/en/latest/topics/practices.html#avoiding-getting-banned">link1</a>, <a href="https://scrapeops.io/python-scrapy-playbook/scrapy-403-unhandled-forbidden-error/">link2</a>, <a href="https://scrapeops.io/web-scraping-playbook/403-forbidden-error-web-scraping/">link3</a>, <a href="https://scrapingrobot.com/blog/most-common-user-agents/">link4</a>) for how to work around that issue. The easiest solution is changing one line in <code>setting.py</code>. You might see this when you run <code>scrapy shell</code> as well, so keep an eye out for <code>403</code>! Remember, you want your status to be <code>200 OK</code>. If they know that you are on Python, they will certainly try to block you.</p>
+<p><strong>Hint</strong>: Later on, you may run into <code>403 Forbidden</code> errors once the website detects that you’re a bot. See these links (<a href="https://doc.scrapy.org/en/latest/topics/practices.html#avoiding-getting-banned">link1</a>, <a href="https://scrapeops.io/python-scrapy-playbook/scrapy-403-unhandled-forbidden-error/">link2</a>, <a href="https://scrapeops.io/web-scraping-playbook/403-forbidden-error-web-scraping/">link3</a>, <a href="https://scrapingrobot.com/blog/most-common-user-agents/">link4</a>) for how to work around that issue. The easiest solution is changing one line in <code>setting.py</code>. You might see this when you run <code>scrapy shell</code> as well, so keep an eye out for <code>403</code>! Remember, you want your status to be <code>200 OK</code>. If they know that you are on Python, they will certainly try to block you. One way to change user agent on scrapy shell is:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scrapy</span> shell <span class="at">-s</span> USER_AGENT=<span class="st">'Scrapy/2.8.0 (+https://scrapy.org)'</span> https://www.themoviedb.org/...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="write-your-scraper" class="level2">
 <h2 class="anchored" data-anchor-id="write-your-scraper">2. Write Your Scraper</h2>
 <p>Create a file inside the <code>spiders</code> directory called <code>tmdb_spider.py</code>. Add the following lines to the file:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to run </span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># scrapy crawl tmdb_spider -o movies.csv</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scrapy</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TmdbSpider(scrapy.Spider):</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> <span class="st">'tmdb_spider'</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    start_urls <span class="op">=</span> [<span class="st">'https://www.themoviedb.org/movie/671-harry-potter-and-the-philosopher-s-stone/'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to run </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># scrapy crawl tmdb_spider -o movies.csv</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scrapy</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TmdbSpider(scrapy.Spider):</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    name <span class="op">=</span> <span class="st">'tmdb_spider'</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    start_urls <span class="op">=</span> [<span class="st">'https://www.themoviedb.org/movie/671-harry-potter-and-the-philosopher-s-stone/'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Replace the entry of <code>start_urls</code> with the URL corresponding to your favorite movie or TV show.</p>
 <p>Now, implement three parsing methods for the <code>TmdbSpider</code> class.</p>
 <ul>
@@ -270,7 +271,7 @@ cd TMDB_scraper</code></pre>
 <li><code>parse_actor_page(self, response)</code> should assume that you start on the page of an actor. It should yield a dictionary with two key-value pairs, of the form <code>{"actor" : actor_name, "movie_or_TV_name" : movie_or_TV_name}</code>. The method should yield one such dictionary for each of the movies or TV shows on which that actor has worked. Note that you will need to determine both the name of the actor and the name of each movie or TV show. This method should be no more than 15 lines of code, excluding comments and docstrings.</li>
 </ul>
 <p>Provided that these methods are correctly implemented, you can run the command</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scrapy</span> crawl tmdb_spider <span class="at">-o</span> results.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scrapy</span> crawl tmdb_spider <span class="at">-o</span> results.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>to create a <code>.csv</code> file with a column for actors and a column for movies or TV shows.</p>
 <p>Experimentation in the <a href="https://docs.scrapy.org/en/latest/topics/shell.html">scrapy shell</a> is strongly recommended.</p>
 <section id="challenge" class="level3">
@@ -281,9 +282,9 @@ cd TMDB_scraper</code></pre>
 <section id="make-your-recommendations" class="level2">
 <h2 class="anchored" data-anchor-id="make-your-recommendations">3. Make Your Recommendations</h2>
 <p>Once your spider is fully written, comment out the line</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>CLOSESPIDER_PAGECOUNT <span class="op">=</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>CLOSESPIDER_PAGECOUNT <span class="op">=</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>in the <code>settings.py</code> file. Then, the command</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scrapy</span> crawl tmdb_spider <span class="at">-o</span> results.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scrapy</span> crawl tmdb_spider <span class="at">-o</span> results.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>will run your spider and save a CSV file called <code>results.csv</code>, with columns for actor names and the movies and TV shows on which they worked.</p>
 <p>Once you’re happy with the operation of your spider, compute a sorted list with the top movies and TV shows that share actors with your favorite movie or TV show. For example, it may have two columns: one for “movie names” and “number of shared actors”.</p>
 <p>Feel free to be creative. You can show a pandas data frame, a chart using <code>matplotlib</code> or <code>plotly</code>, or any other sensible display of the results.</p>
@@ -308,7 +309,7 @@ cd TMDB_scraper</code></pre>
 <h1>Specifications</h1>
 <section id="format" class="level2">
 <h2 class="anchored" data-anchor-id="format">Format</h2>
-<ol start="0" type="1">
+<ol type="a">
 <li><strong>You have to submit the PDF-printed version of your Quarto blog</strong>. Anything else will receive “In Progress” grade at best, incuding:</li>
 </ol>
 <ul>
@@ -317,7 +318,7 @@ cd TMDB_scraper</code></pre>
 <li>PDF-converted Jupyter notebook or JupyterLab</li>
 <li>PDF generated directly from Quarto</li>
 </ul>
-<ol start="0" type="1">
+<ol start="2" type="a">
 <li>You have to submit code necessary to reproduce your results.</li>
 </ol>
 </section>
