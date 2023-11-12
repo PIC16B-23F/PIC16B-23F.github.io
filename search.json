@@ -151,7 +151,21 @@
     "href": "posts/hw4/index.html#coding-problem",
     "title": "Homework 4: Fake News Classification",
     "section": "Coding Problem",
-    "text": "Coding Problem\n\nData Prep\n\nStopwords are removed during the construction of the data set.\nmake_dataset is implemented as a function, and used to create both the training/validation and testing data sets.\nThe constructed Dataset has multiple inputs.\n20% of the training data is split off for validation.\nThere is a comment on the base rate for the data set.\n\n\n\nModels\n\nModel 1 uses only the article title.\nModel 2 uses only the article text.\nModel 3 uses both the article title and text.\nVectorization is consistent across title and text for Model 3.\nThe training history is shown for each of the three models, including the training and validation performance.\nThe most performant model is evaluated on the test data set.\nThe best model consistently obtains at least 97% accuracy on the validation set.\nThe best model’s performance on the test set is shown.\n\n\n\nEmbedding Visualization\n\nA visualization of the learned word embedding is shown.\nThe written text discusses at least 5 words whose location is interpretable within the embedding.\n\n\n\nStyle and Documentation\n\nCode throughout is written using minimal repetition and clean style.\nDocstrings are not required in this Blog Post, but please make sure to include useful comments and detailed explanations for each of your code blocks.\nAny repeated operations should be enclosed in functions, regardless of whether they are explicitly required in the instructions.\n\n\n\nWriting\n\nThe blog post is written in tutorial format, in engaging and clear English. Grammar and spelling errors are acceptable within reason."
+    "text": "Coding Problem\n\nData Prep\n\nStopwords are removed during the construction of the data set.\nmake_dataset is implemented as a function, and used to create both the training/validation and testing data sets.\nThe constructed Dataset has multiple inputs.\n20% of the training data is split off for validation.\nThere is a comment on the base rate for the data set.\n\n\n\nModels\n\nModel 1 uses only the article title.\nModel 2 uses only the article text.\nModel 3 uses both the article title and text.\nVectorization is consistent across title and text for Model 3.\nThe training history is shown for each of the three models, including the training and validation performance.\nThe most performant model is evaluated on the test data set.\nThe best model consistently obtains at least 97% accuracy on the validation set.\nThe best model’s performance on the test set is shown.\n\n\n\nEmbedding Visualization\n\nA visualization of the learned word embedding is shown.\nThe written text discusses at least 5 words whose location is interpretable within the embedding."
+  },
+  {
+    "objectID": "posts/hw4/index.html#style-and-documentation",
+    "href": "posts/hw4/index.html#style-and-documentation",
+    "title": "Homework 4: Fake News Classification",
+    "section": "Style and Documentation",
+    "text": "Style and Documentation\n\nCode throughout is written using minimal repetition and clean style.\nDocstrings are not required in this Blog Post, but please make sure to include useful comments and detailed explanations for each of your code blocks.\nAny repeated operations should be enclosed in functions, regardless of whether they are explicitly required in the instructions."
+  },
+  {
+    "objectID": "posts/hw4/index.html#writing",
+    "href": "posts/hw4/index.html#writing",
+    "title": "Homework 4: Fake News Classification",
+    "section": "Writing",
+    "text": "Writing\n\nThe blog post is written in tutorial format, in engaging and clear English. Grammar and spelling errors are acceptable within reason."
   },
   {
     "objectID": "posts/hw2/index.html",

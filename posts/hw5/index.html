@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-11-08">
+<meta name="dcterms.date" content="2023-11-17">
 
-<title>PIC16B-23F - Homework 4: Fake News Classification</title>
+<title>PIC16B-23F - Homework 5: Heat Diffusion</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -95,6 +95,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -141,7 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Homework 4: Fake News Classification</h1>
+      <h1 class="title">Homework 5: Heat Diffusion</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">Homework</div>
               </div>
@@ -155,7 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 8, 2023</p>
+        <p class="date">November 17, 2023</p>
       </div>
     </div>
     
@@ -171,32 +173,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-source" id="toc-data-source" class="nav-link active" data-scroll-target="#data-source">Data Source</a></li>
-  <li><a href="#instructions" id="toc-instructions" class="nav-link" data-scroll-target="#instructions">Instructions</a>
-  <ul class="collapse">
-  <li><a href="#acquire-training-data" id="toc-acquire-training-data" class="nav-link" data-scroll-target="#acquire-training-data">1. Acquire Training Data</a></li>
-  <li><a href="#make-a-dataset" id="toc-make-a-dataset" class="nav-link" data-scroll-target="#make-a-dataset">2. Make a Dataset</a>
-  <ul class="collapse">
-  <li><a href="#validation-data" id="toc-validation-data" class="nav-link" data-scroll-target="#validation-data">Validation Data</a></li>
-  <li><a href="#base-rate" id="toc-base-rate" class="nav-link" data-scroll-target="#base-rate">Base Rate</a></li>
-  <li><a href="#textvectorization" id="toc-textvectorization" class="nav-link" data-scroll-target="#textvectorization">TextVectorization</a></li>
-  </ul></li>
-  <li><a href="#create-models" id="toc-create-models" class="nav-link" data-scroll-target="#create-models">3. Create Models</a>
-  <ul class="collapse">
-  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
-  <li><a href="#what-accuracy-should-you-aim-for" id="toc-what-accuracy-should-you-aim-for" class="nav-link" data-scroll-target="#what-accuracy-should-you-aim-for">What Accuracy Should You Aim For?</a></li>
-  </ul></li>
-  <li><a href="#model-evaluation" id="toc-model-evaluation" class="nav-link" data-scroll-target="#model-evaluation">4. Model Evaluation</a></li>
-  <li><a href="#embedding-visualization" id="toc-embedding-visualization" class="nav-link" data-scroll-target="#embedding-visualization">5. Embedding Visualization</a></li>
-  </ul></li>
+  <li><a href="#with-matrix-multiplication" id="toc-with-matrix-multiplication" class="nav-link active" data-scroll-target="#with-matrix-multiplication">1. With matrix multiplication</a></li>
+  <li><a href="#peformance-improvement-sparse-matrix" id="toc-peformance-improvement-sparse-matrix" class="nav-link" data-scroll-target="#peformance-improvement-sparse-matrix">2. Peformance improvement: sparse matrix</a></li>
+  <li><a href="#with-numba" id="toc-with-numba" class="nav-link" data-scroll-target="#with-numba">3. With <code>numba</code></a></li>
+  <li><a href="#performance-comparison" id="toc-performance-comparison" class="nav-link" data-scroll-target="#performance-comparison">4. Performance comparison</a></li>
   <li><a href="#specifications" id="toc-specifications" class="nav-link" data-scroll-target="#specifications">Specifications</a>
   <ul class="collapse">
   <li><a href="#format" id="toc-format" class="nav-link" data-scroll-target="#format">Format</a></li>
   <li><a href="#coding-problem" id="toc-coding-problem" class="nav-link" data-scroll-target="#coding-problem">Coding Problem</a>
   <ul class="collapse">
-  <li><a href="#data-prep" id="toc-data-prep" class="nav-link" data-scroll-target="#data-prep">Data Prep</a></li>
-  <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models">Models</a></li>
-  <li><a href="#embedding-visualization-1" id="toc-embedding-visualization-1" class="nav-link" data-scroll-target="#embedding-visualization-1">Embedding Visualization</a></li>
+  <li><a href="#part-1" id="toc-part-1" class="nav-link" data-scroll-target="#part-1">Part 1</a></li>
+  <li><a href="#part-2" id="toc-part-2" class="nav-link" data-scroll-target="#part-2">Part 2</a></li>
+  <li><a href="#part-3" id="toc-part-3" class="nav-link" data-scroll-target="#part-3">Part 3</a></li>
+  <li><a href="#part-4" id="toc-part-4" class="nav-link" data-scroll-target="#part-4">Part 4</a></li>
   </ul></li>
   <li><a href="#style-and-documentation" id="toc-style-and-documentation" class="nav-link" data-scroll-target="#style-and-documentation">Style and Documentation</a></li>
   <li><a href="#writing" id="toc-writing" class="nav-link" data-scroll-target="#writing">Writing</a></li>
@@ -210,106 +199,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>Rampant misinformation — often called “fake news” — is one of the defining features of contemporary democratic life. In this Blog Post, you will develop and assess a fake news classifier using Tensorflow.</p>
-<p><em>Note: Working on this Blog Post in Google Colab is highly recommended.</em></p>
-<section id="data-source" class="level2">
-<h2 class="anchored" data-anchor-id="data-source">Data Source</h2>
-<p>Our data for this assignment comes from the article</p>
-<ul>
-<li>Ahmed H, Traore I, Saad S. (2017) “Detection of Online Fake News Using N-Gram Analysis and Machine Learning Techniques. In: Traore I., Woungang I., Awad A. (eds) <em>Intelligent, Secure, and Dependable Systems in Distributed and Cloud Environments. ISDDC 2017. Lecture Notes in Computer Science</em>, vol 10618. Springer, Cham (pp.&nbsp;127-138).</li>
-</ul>
-<p>I accessed it from <a href="https://www.kaggle.com/clmentbisaillon/fake-and-real-news-dataset">Kaggle</a>. I have done a small amount of data cleaning for you already, and performed a train-test split.</p>
+<p>In this blog assignment, you will conduct simulation for two-dimensional heat diffusion in several ways.</p>
+<p>In the lecture note, we represented steps to simulate heat diffusion as a sequence of matrix-vector multiplications. Let’s expand it to two dimensions.</p>
+<p>In two-dimensions, the heat equation reads <span class="math display">\[\frac{\partial f(x, t)}{\partial t} = \frac{\partial^2 f}{\partial x^2 } + \frac{\partial^2 f}{\partial y^2 }\;.\]</span> Using the similar discretization scheme as in one-dimensional case, let’s put <span class="math display">\[
+x_i = i \Delta x,\;\; y_j = j \Delta y,\;\; t_k = k \Delta t,
+\]</span> for <span class="math inline">\(i = 0, \cdots, N-1\)</span>, <span class="math inline">\(j = 0, \cdots, N-1\)</span>, and <span class="math inline">\(k = 0, 1, 2 \cdots\)</span>.</p>
+<p>When we define <span class="math inline">\(u_{i, j}^k = f(x_i, y_j, t_k)\)</span>, the update equation in discrete time can be reprented as <span class="math display">\[
+u_{i, j}^{k+1} \approx u_{i, j}^k + \epsilon \left[u_{i+1, j}^k  + u_{i-1, j}^k + u_{i, j+1}^k + u_{i, j-1}^k - 4 u_{i, j}^k\right],
+\]</span> where <span class="math inline">\(\epsilon\)</span> is a small parameter. The boundary condition can be constructed to allow heat to escape: <span class="math display">\[
+u_{-1, j}^k = u_{N, j}^k = u_{i, -1}^k = u_{i, N}^k = 0.
+\]</span> Note that you are not explicitly creating space for <span class="math inline">\(u_{-1, j}^k\)</span>, <span class="math inline">\(u_{N, j}^k\)</span>, <span class="math inline">\(u_{i, -1}^k\)</span>, or <span class="math inline">\(u_{i, N}^k\)</span>.</p>
+<p>For this homework, we will use</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">101</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and we will use the similar initial condition as in the 1-d case: putting 1 unit of heat at midpoint.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># construct initial condition: 1 unit of heat at midpoint. </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>v0 <span class="op">=</span> np.zeros(n, n)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>v0[<span class="bu">int</span>(n<span class="op">/</span><span class="dv">2</span>), <span class="bu">int</span>(n<span class="op">/</span><span class="dv">2</span>)] <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>plt.imshow(v0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="with-matrix-multiplication" class="level2">
+<h2 class="anchored" data-anchor-id="with-matrix-multiplication">1. With matrix multiplication</h2>
+<p>As in the linear algebra lecture, represent the second term of the update equation in a matrix-vector multiplication form so that each iteration of update is:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> v <span class="op">+</span> epsilon <span class="op">*</span> (A <span class="op">@</span> v.flatten()).reshape((N, N))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>That is, we view <span class="math inline">\(u_{i, j}^k\)</span> as the element with index <span class="math inline">\(N \times i + j\)</span> in the vector.</p>
+<p>The matrix <code>A</code> has the size of <span class="math inline">\(N^2 \times N^2\)</span>. How long does it take to run one iteration? Visualize the diffusion of heat with a constant time interval. Since our grading is PDF-based, please use a grid of 2-d heatmap or contour plot. You are welcome to create an animation later. Since we want to compare computation time between multiple methods, we should not count time needed for visualization.</p>
+<p><em>Hint</em>. The following is not correct, but putting some zeros to it will do it:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> <span class="op">-</span><span class="dv">4</span><span class="op">*</span>np.eye(N<span class="op">*</span>N)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">+=</span> np.diag(np.ones(N<span class="op">*</span>N<span class="op">-</span><span class="dv">1</span>), <span class="dv">1</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>A <span class="op">+=</span> np.diag(np.ones(N<span class="op">*</span>N<span class="op">-</span><span class="dv">1</span>), <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>A <span class="op">+=</span> np.diag(np.ones(N <span class="op">*</span> (N<span class="op">-</span><span class="dv">1</span>)), N)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>A <span class="op">+=</span> np.diag(np.ones(N <span class="op">*</span> (N<span class="op">-</span><span class="dv">1</span>)), <span class="op">-</span>N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="instructions" class="level1">
-<h1>Instructions</h1>
-<section id="acquire-training-data" class="level2">
-<h2 class="anchored" data-anchor-id="acquire-training-data">1. Acquire Training Data</h2>
-<p>I have hosted a training data set at the below URL. You can either read it into Python directly (via <code>pd.read_csv()</code>) or download it to your computer and read it from disk.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>train_url <span class="op">=</span> <span class="st">"https://github.com/PhilChodrow/PIC16b/blob/master/datasets/fake_news_train.csv?raw=true"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Each row of the data corresponds to an article. The <code>title</code> column gives the title of the article, while the <code>text</code> column gives the full article text. The final column, called <code>fake</code>, is <code>0</code> if the article is true and <code>1</code> if the article contains fake news, as determined by the authors of the paper above.</p>
+<section id="peformance-improvement-sparse-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="peformance-improvement-sparse-matrix">2. Peformance improvement: sparse matrix</h2>
+<p>In fact, the performance of Part 1 is supposed to be excruciatingly slow. While we can use the underlying optimized matrix multiplication routine from BLAS (basic linear algebra subprograms), it is not particularly effecive here, as the matrix <code>A</code> has less than <span class="math inline">\(5N^2\)</span> nonzero elements out of <span class="math inline">\(N^4\)</span> elements. Most of operations are wasted for computing zeros. Let’s use the data structure that exploits this fact: sparse matrix data structures. The <code>scipy</code> package holds useful sparse matrices. Since we know that the matrix <code>A</code> is pentadiagonal, we can use <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.dia_array.html#scipy.sparse.dia_array"><code>dia_array</code></a> to only use <span class="math inline">\(O(N^2)\)</span> space for the matrix, and only take <span class="math inline">\(O(N^2)\)</span> time for each update.</p>
+<p>Let’s define <code>A_dia_array</code> as the matrix <code>A</code> in a sparse format and repeat part 1.</p>
 </section>
-<section id="make-a-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="make-a-dataset">2. Make a Dataset</h2>
-<p>Write a function called <code>make_dataset</code>. This function should do two things:</p>
-<ol type="1">
-<li><em>Remove stopwords</em> from the article <code>text</code> and <code>title</code>. A stopword is a word that is usually considered to be uninformative, such as “the,” “and,” or “but.” You may find <a href="https://stackoverflow.com/questions/29523254/python-remove-stop-words-from-pandas-dataframe">this StackOverFlow thread</a> to be helpful.</li>
-<li>Construct and return a <code>tf.data.Dataset</code> with two inputs and one output. The input should be of the form <code>(title, text)</code>, and the output should consist only of the <code>fake</code> column. You may find it helpful to consult lecture notes or <a href="https://www.tensorflow.org/guide/keras/functional">this tutorial</a> for reference on how to construct and use <code>Dataset</code>s with multiple inputs.</li>
-</ol>
-<p>Call the function <code>make_dataset</code> on your training dataframe to produce a <code>Dataset</code>. You may wish to <code>batch</code> your <code>Dataset</code> prior to returning it, which can be done like this: <code>my_data_set.batch(100)</code>. Batching causes your model to train on chunks of data rather than individual rows. This can sometimes reduce accuracy, but can also greatly increase the speed of training. Finding a balance is key. I found batches of 100 rows to work well.</p>
-<section id="validation-data" class="level3">
-<h3 class="anchored" data-anchor-id="validation-data">Validation Data</h3>
-<p>After you’ve constructed your primary <code>Dataset</code>, split of 20% of it to use for validation.</p>
+<section id="with-numba" class="level2">
+<h2 class="anchored" data-anchor-id="with-numba">3. With <code>numba</code></h2>
+<p>Now, let’s use <code>numba</code> to solve the same problem, without thinking about matrix multiplication. Write a nested for loop and accelerate it with <code>@jit</code>.<br>
+How long does it take?</p>
 </section>
-<section id="base-rate" class="level3">
-<h3 class="anchored" data-anchor-id="base-rate">Base Rate</h3>
-<p>Recall that the base rate refers to the accuracy of a model that always makes the same guess (for example, such a model might always say “fake news!”). Determine the base rate for this data set by examining the labels on the training set.</p>
-</section>
-<section id="textvectorization" class="level3">
-<h3 class="anchored" data-anchor-id="textvectorization">TextVectorization</h3>
-<p>Here is one option:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#preparing a text vectorization layer for tf model</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>size_vocabulary <span class="op">=</span> <span class="dv">2000</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> standardization(input_data):</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    lowercase <span class="op">=</span> tf.strings.lower(input_data)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    no_punctuation <span class="op">=</span> tf.strings.regex_replace(lowercase,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">'[</span><span class="sc">%s</span><span class="st">]'</span> <span class="op">%</span> re.escape(string.punctuation),<span class="st">''</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> no_punctuation </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>title_vectorize_layer <span class="op">=</span> TextVectorization(</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    standardize<span class="op">=</span>standardization,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span>size_vocabulary, <span class="co"># only consider this many words</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    output_mode<span class="op">=</span><span class="st">'int'</span>,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    output_sequence_length<span class="op">=</span><span class="dv">500</span>) </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>title_vectorize_layer.adapt(train.<span class="bu">map</span>(<span class="kw">lambda</span> x, y: x[<span class="st">"title"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-</section>
-<section id="create-models" class="level2">
-<h2 class="anchored" data-anchor-id="create-models">3. Create Models</h2>
-<p>Please use TensorFlow models to offer a perspective on the following question:</p>
-<blockquote class="blockquote">
-<p>When detecting fake news, is it most effective to focus on only the title of the article, the full text of the article, or both?</p>
-</blockquote>
-<p>To address this question, create <strong>three (3)</strong> TensorFlow models.</p>
-<ol type="1">
-<li>In the first model, you should use <strong>only the article title</strong> as an input.</li>
-<li>In the second model, you should use <strong>only the article text</strong> as an input.</li>
-<li>In the third model, you should use <strong>both the article title and the article text</strong> as input.</li>
-</ol>
-<p>Train your models on the training data until they appear to be “fully” trained. Assess and compare their performance. Make sure to include a visualization of the training histories.</p>
-<p>You can visualize your models with this code:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras <span class="im">import</span> utils</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>utils.plot_model(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="notes" class="level3">
-<h3 class="anchored" data-anchor-id="notes">Notes</h3>
-<ul>
-<li>For the first two models, you don’t have to create new <code>Dataset</code>s. Instead, just specify the <code>inputs</code> to the <code>keras.Model</code> appropriately, and TensorFlow will automatically ignore the unused inputs in the <code>Dataset</code>.</li>
-<li>The lecture notes and tutorials linked above are likely to be helpful as you are creating your models as well.</li>
-<li><strong>You will need to use the Functional API, rather than the Sequential API, for this modeling task.</strong></li>
-<li>When using the Functional API, it is possible to use the same layer in multiple parts of your model; see <a href="https://www.tensorflow.org/guide/keras/functional">this tutorial</a> for examples. I recommended that you share an embedding layer for both the article <code>title</code> and <code>text</code> inputs.</li>
-<li><strong>You may encounter overfitting</strong>, in which case Dropout layers can help.</li>
-</ul>
-<p>You’re free to be creative when designing your models. If you’re feeling very stuck, start with some of the pipelines for processing text that we’ve seen in lecture, and iterate from there. Please include in your discussion some of the things that you tried and how you determined the models you used.</p>
-</section>
-<section id="what-accuracy-should-you-aim-for" class="level3">
-<h3 class="anchored" data-anchor-id="what-accuracy-should-you-aim-for">What Accuracy Should You Aim For?</h3>
-<p>Your three different models might have noticeably different performance. <strong>Your best model should be able to consistently score at least 97% validation accuracy.</strong></p>
-<p>After comparing the performance of each model on validation data, make a recommendation regarding the question at the beginning of this section. Should algorithms use the title, the text, or both when seeking to detect fake news?</p>
-</section>
-</section>
-<section id="model-evaluation" class="level2">
-<h2 class="anchored" data-anchor-id="model-evaluation">4. Model Evaluation</h2>
-<p>Now we’ll test your model performance on unseen test data. For this part, you can focus on your <strong>best</strong> model, and ignore the other two.</p>
-<p>Once you’re satisfied with your best model’s performance on validation data, download the test data here:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>test_url <span class="op">=</span> <span class="st">"https://github.com/PhilChodrow/PIC16b/blob/master/datasets/fake_news_test.csv?raw=true"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You’ll need to convert this data using the <code>make_dataset</code> function you defined in Part §2. Then, evaluate your model on the data. If we used your model as a fake news detector, how often would we be right?</p>
-</section>
-<section id="embedding-visualization" class="level2">
-<h2 class="anchored" data-anchor-id="embedding-visualization">5. Embedding Visualization</h2>
-<p>Visualize and comment on the <em>embedding</em> that your model learned (you did use an embedding, right?). Are you able to find any interesting patterns or associations in the words that the model found useful when distinguishing real news from fake news? You are welcome to use either 2-dimensional or 3-dimensional embedding. Comment on at least 5 words whose location in the embedding you find interpretable.</p>
-<p>I’d suggest that you create an embedding in a relatively large number of dimensions (say, 10) and then use PCA to reduce the dimension down to a visualizable number. This procedure was demonstrated in lecture.</p>
-</section>
+<section id="performance-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="performance-comparison">4. Performance comparison</h2>
+<p>Compare the performances of the three methods.</p>
 </section>
 <section id="specifications" class="level1">
 <h1>Specifications</h1>
@@ -322,48 +254,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="coding-problem" class="level2">
 <h2 class="anchored" data-anchor-id="coding-problem">Coding Problem</h2>
-<section id="data-prep" class="level3">
-<h3 class="anchored" data-anchor-id="data-prep">Data Prep</h3>
+<section id="part-1" class="level3">
+<h3 class="anchored" data-anchor-id="part-1">Part 1</h3>
 <ol type="1">
-<li>Stopwords are removed during the construction of the data set.</li>
-<li><code>make_dataset</code> is implemented as a function, and used to create both the training/validation and testing data sets.</li>
-<li>The constructed <code>Dataset</code> has multiple inputs.</li>
-<li>20% of the training data is split off for validation.</li>
-<li>There is a comment on the base rate for the data set.</li>
+<li>The matrix <code>A</code> is constructed correctly.</li>
+<li>The visualized solution appears reasonable.</li>
+<li>The time needed for solving the PDE is shown.</li>
 </ol>
 </section>
-<section id="models" class="level3">
-<h3 class="anchored" data-anchor-id="models">Models</h3>
-<ol start="6" type="1">
-<li>Model 1 uses only the article title.</li>
-<li>Model 2 uses only the article text.</li>
-<li>Model 3 uses both the article title and text.</li>
-<li>Vectorization is consistent across title and text for Model 3.</li>
-<li>The training history is shown for each of the three models, including the training and validation performance.</li>
-<li>The most performant model is evaluated on the test data set.</li>
-<li>The best model consistently obtains at least 97% accuracy on the validation set.</li>
-<li>The best model’s performance on the test set is shown.</li>
+<section id="part-2" class="level3">
+<h3 class="anchored" data-anchor-id="part-2">Part 2</h3>
+<ol start="4" type="1">
+<li>The sparse matrix <code>A_dia_array</code> is constructed correctly.</li>
+<li>The time needed for solving the PDE is shown.</li>
+<li>It should be at least 10x faster than Part 1.</li>
+<li>The visualized solution appears reasonable.</li>
 </ol>
 </section>
-<section id="embedding-visualization-1" class="level3">
-<h3 class="anchored" data-anchor-id="embedding-visualization-1">Embedding Visualization</h3>
-<ol start="14" type="1">
-<li>A visualization of the learned word embedding is shown.</li>
-<li>The written text discusses at least 5 words whose location is interpretable within the embedding.</li>
+<section id="part-3" class="level3">
+<h3 class="anchored" data-anchor-id="part-3">Part 3</h3>
+<ol start="8" type="1">
+<li>The for loop is constructed correctly.</li>
+<li><code>@jit</code> is used for just-in-time compilation.</li>
+<li>It should be at least 10x faster than Part 1.</li>
+<li>The visualized solution appears reasonable.</li>
+</ol>
+</section>
+<section id="part-4" class="level3">
+<h3 class="anchored" data-anchor-id="part-4">Part 4</h3>
+<ol start="12" type="1">
+<li>Compare the performance of the three parts.</li>
 </ol>
 </section>
 </section>
 <section id="style-and-documentation" class="level2">
 <h2 class="anchored" data-anchor-id="style-and-documentation">Style and Documentation</h2>
-<ol start="16" type="1">
+<ol start="12" type="1">
 <li>Code throughout is written using minimal repetition and clean style.</li>
-<li>Docstrings are not required in this Blog Post, but please make sure to include useful comments and detailed explanations for each of your code blocks.</li>
+<li>Please make sure to include useful comments and detailed explanations for each of your code blocks.</li>
 <li>Any repeated operations should be enclosed in functions, regardless of whether they are explicitly required in the instructions.</li>
 </ol>
 </section>
 <section id="writing" class="level2">
 <h2 class="anchored" data-anchor-id="writing">Writing</h2>
-<ol start="19" type="1">
+<ol start="15" type="1">
 <li>The blog post is written in tutorial format, in engaging and clear English. Grammar and spelling errors are acceptable within reason.</li>
 </ol>
 
