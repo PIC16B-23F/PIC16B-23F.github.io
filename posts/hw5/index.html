@@ -174,9 +174,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#with-matrix-multiplication" id="toc-with-matrix-multiplication" class="nav-link active" data-scroll-target="#with-matrix-multiplication">1. With matrix multiplication</a></li>
-  <li><a href="#peformance-improvement-sparse-matrix" id="toc-peformance-improvement-sparse-matrix" class="nav-link" data-scroll-target="#peformance-improvement-sparse-matrix">2. Peformance improvement: sparse matrix</a></li>
+  <li><a href="#sparse-matrix" id="toc-sparse-matrix" class="nav-link" data-scroll-target="#sparse-matrix">2. Sparse matrix</a></li>
   <li><a href="#with-numba" id="toc-with-numba" class="nav-link" data-scroll-target="#with-numba">3. With <code>numba</code></a></li>
-  <li><a href="#performance-comparison" id="toc-performance-comparison" class="nav-link" data-scroll-target="#performance-comparison">4. Performance comparison</a></li>
+  <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison">4. Comparison</a></li>
   <li><a href="#specifications" id="toc-specifications" class="nav-link" data-scroll-target="#specifications">Specifications</a>
   <ul class="collapse">
   <li><a href="#format" id="toc-format" class="nav-link" data-scroll-target="#format">Format</a></li>
@@ -203,12 +203,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In the lecture note, we represented steps to simulate heat diffusion as a sequence of matrix-vector multiplications. Let’s expand it to two dimensions.</p>
 <p>In two-dimensions, the heat equation reads <span class="math display">\[\frac{\partial f(x, t)}{\partial t} = \frac{\partial^2 f}{\partial x^2 } + \frac{\partial^2 f}{\partial y^2 }\;.\]</span> Using the similar discretization scheme as in one-dimensional case, let’s put <span class="math display">\[
 x_i = i \Delta x,\;\; y_j = j \Delta y,\;\; t_k = k \Delta t,
-\]</span> for <span class="math inline">\(i = 0, \cdots, N-1\)</span>, <span class="math inline">\(j = 0, \cdots, N-1\)</span>, and <span class="math inline">\(k = 0, 1, 2 \cdots\)</span>.</p>
+\]</span> for <span class="math inline">\(i = 0, \cdots, N-1\)</span>; <span class="math inline">\(j = 0, \cdots, N-1\)</span>; and <span class="math inline">\(k = 0, 1, 2 \cdots\)</span>.</p>
 <p>When we define <span class="math inline">\(u_{i, j}^k = f(x_i, y_j, t_k)\)</span>, the update equation in discrete time can be reprented as <span class="math display">\[
-u_{i, j}^{k+1} \approx u_{i, j}^k + \epsilon \left[u_{i+1, j}^k  + u_{i-1, j}^k + u_{i, j+1}^k + u_{i, j-1}^k - 4 u_{i, j}^k\right],
+u_{i, j}^{k+1} \approx u_{i, j}^k + \epsilon \left(u_{i+1, j}^k  + u_{i-1, j}^k + u_{i, j+1}^k + u_{i, j-1}^k - 4 u_{i, j}^k\right),
 \]</span> where <span class="math inline">\(\epsilon\)</span> is a small parameter. The boundary condition can be constructed to allow heat to escape: <span class="math display">\[
 u_{-1, j}^k = u_{N, j}^k = u_{i, -1}^k = u_{i, N}^k = 0.
-\]</span> Note that you are not explicitly creating space for <span class="math inline">\(u_{-1, j}^k\)</span>, <span class="math inline">\(u_{N, j}^k\)</span>, <span class="math inline">\(u_{i, -1}^k\)</span>, or <span class="math inline">\(u_{i, N}^k\)</span>.</p>
+\]</span> Note that we are not explicitly creating space for <span class="math inline">\(u_{-1, j}^k\)</span>, <span class="math inline">\(u_{N, j}^k\)</span>, <span class="math inline">\(u_{i, -1}^k\)</span>, or <span class="math inline">\(u_{i, N}^k\)</span>.</p>
 <p>For this homework, we will use</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">101</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>and we will use the similar initial condition as in the 1-d case: putting 1 unit of heat at midpoint.</p>
@@ -222,26 +222,21 @@ u_{-1, j}^k = u_{N, j}^k = u_{i, -1}^k = u_{i, N}^k = 0.
 <div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> v <span class="op">+</span> epsilon <span class="op">*</span> (A <span class="op">@</span> v.flatten()).reshape((N, N))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>That is, we view <span class="math inline">\(u_{i, j}^k\)</span> as the element with index <span class="math inline">\(N \times i + j\)</span> in the vector.</p>
 <p>The matrix <code>A</code> has the size of <span class="math inline">\(N^2 \times N^2\)</span>. How long does it take to run one iteration? Visualize the diffusion of heat with a constant time interval. Since our grading is PDF-based, please use a grid of 2-d heatmap or contour plot. You are welcome to create an animation later. Since we want to compare computation time between multiple methods, we should not count time needed for visualization.</p>
-<p><em>Hint</em>. The following is not correct, but putting some zeros to it will do it:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> <span class="op">-</span><span class="dv">4</span><span class="op">*</span>np.eye(N<span class="op">*</span>N)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">+=</span> np.diag(np.ones(N<span class="op">*</span>N<span class="op">-</span><span class="dv">1</span>), <span class="dv">1</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>A <span class="op">+=</span> np.diag(np.ones(N<span class="op">*</span>N<span class="op">-</span><span class="dv">1</span>), <span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>A <span class="op">+=</span> np.diag(np.ones(N <span class="op">*</span> (N<span class="op">-</span><span class="dv">1</span>)), N)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>A <span class="op">+=</span> np.diag(np.ones(N <span class="op">*</span> (N<span class="op">-</span><span class="dv">1</span>)), <span class="op">-</span>N)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>Hint</em>. The matrix is pentadiagonal – only five diagonals contain nonzero values. The main diagonal, first upper and lower diagonal, and <span class="math inline">\(N\)</span>-th upper and lower diagonal. Don’t forget to put some zeros to the first upper and lower diagonals!</p>
 </section>
-<section id="peformance-improvement-sparse-matrix" class="level2">
-<h2 class="anchored" data-anchor-id="peformance-improvement-sparse-matrix">2. Peformance improvement: sparse matrix</h2>
+<section id="sparse-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="sparse-matrix">2. Sparse matrix</h2>
 <p>In fact, the performance of Part 1 is supposed to be excruciatingly slow. While we can use the underlying optimized matrix multiplication routine from BLAS (basic linear algebra subprograms), it is not particularly effecive here, as the matrix <code>A</code> has less than <span class="math inline">\(5N^2\)</span> nonzero elements out of <span class="math inline">\(N^4\)</span> elements. Most of operations are wasted for computing zeros. Let’s use the data structure that exploits this fact: sparse matrix data structures. The <code>scipy</code> package holds useful sparse matrices. Since we know that the matrix <code>A</code> is pentadiagonal, we can use <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.dia_array.html#scipy.sparse.dia_array"><code>dia_array</code></a> to only use <span class="math inline">\(O(N^2)\)</span> space for the matrix, and only take <span class="math inline">\(O(N^2)\)</span> time for each update.</p>
-<p>Let’s define <code>A_dia_array</code> as the matrix <code>A</code> in a sparse format and repeat part 1.</p>
+<p>Let’s define <code>A_dia_array</code> as the matrix <code>A</code> in a sparse format and repeat Part 1.</p>
 </section>
 <section id="with-numba" class="level2">
 <h2 class="anchored" data-anchor-id="with-numba">3. With <code>numba</code></h2>
 <p>Now, let’s use <code>numba</code> to solve the same problem, without thinking about matrix multiplication. Write a nested for loop and accelerate it with <code>@jit</code>.<br>
 How long does it take?</p>
 </section>
-<section id="performance-comparison" class="level2">
-<h2 class="anchored" data-anchor-id="performance-comparison">4. Performance comparison</h2>
-<p>Compare the performances of the three methods.</p>
+<section id="comparison" class="level2">
+<h2 class="anchored" data-anchor-id="comparison">4. Comparison</h2>
+<p>Compare the implementation and performances of the three methods. Which one is the fastest? Which one was easier for you to write?</p>
 </section>
 <section id="specifications" class="level1">
 <h1>Specifications</h1>
@@ -283,13 +278,13 @@ How long does it take?</p>
 <section id="part-4" class="level3">
 <h3 class="anchored" data-anchor-id="part-4">Part 4</h3>
 <ol start="12" type="1">
-<li>Compare the performance of the three parts.</li>
+<li>Compares three implementations and their performance.</li>
 </ol>
 </section>
 </section>
 <section id="style-and-documentation" class="level2">
 <h2 class="anchored" data-anchor-id="style-and-documentation">Style and Documentation</h2>
-<ol start="12" type="1">
+<ol start="13" type="1">
 <li>Code throughout is written using minimal repetition and clean style.</li>
 <li>Please make sure to include useful comments and detailed explanations for each of your code blocks.</li>
 <li>Any repeated operations should be enclosed in functions, regardless of whether they are explicitly required in the instructions.</li>
@@ -297,7 +292,7 @@ How long does it take?</p>
 </section>
 <section id="writing" class="level2">
 <h2 class="anchored" data-anchor-id="writing">Writing</h2>
-<ol start="15" type="1">
+<ol start="16" type="1">
 <li>The blog post is written in tutorial format, in engaging and clear English. Grammar and spelling errors are acceptable within reason.</li>
 </ol>
 
