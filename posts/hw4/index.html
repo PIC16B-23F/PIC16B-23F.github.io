@@ -338,7 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Model 1 uses only the article title.</li>
 <li>Model 2 uses only the article text.</li>
 <li>Model 3 uses both the article title and text.</li>
-<li>Vectorization is consistent across title and text for Model 3.</li>
+<li>For model 3, embedding is consistent with the text vectorization method. E.g., output from two different <code>TextVectorization</code> layers should not be fed into the same <code>Embedding</code> layer, and the output from the same <code>TextVectorization</code> layers should be fed into the same <code>Embedding</code> layer.</li>
 <li>The training history is shown for each of the three models, including the training and validation performance.</li>
 <li>The most performant model is evaluated on the test data set.</li>
 <li>The best model consistently obtains at least 97% accuracy on the validation set.</li>
