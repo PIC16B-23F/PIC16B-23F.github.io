@@ -187,7 +187,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#what-accuracy-should-you-aim-for" id="toc-what-accuracy-should-you-aim-for" class="nav-link" data-scroll-target="#what-accuracy-should-you-aim-for">What Accuracy Should You Aim For?</a></li>
   </ul></li>
   <li><a href="#model-evaluation" id="toc-model-evaluation" class="nav-link" data-scroll-target="#model-evaluation">4. Model Evaluation</a></li>
-  <li><a href="#embedding-visualization" id="toc-embedding-visualization" class="nav-link" data-scroll-target="#embedding-visualization">5. Embedding Visualization</a></li>
+  <li><a href="#embedding-visualization" id="toc-embedding-visualization" class="nav-link" data-scroll-target="#embedding-visualization">5. Embedding Visualization</a>
+  <ul class="collapse">
+  <li><a href="#tip-taking-images-out-of-colab" id="toc-tip-taking-images-out-of-colab" class="nav-link" data-scroll-target="#tip-taking-images-out-of-colab">Tip: Taking images out of Colab</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#specifications" id="toc-specifications" class="nav-link" data-scroll-target="#specifications">Specifications</a>
   <ul class="collapse">
@@ -309,6 +312,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="embedding-visualization">5. Embedding Visualization</h2>
 <p>Visualize and comment on the <em>embedding</em> that your model learned (you did use an embedding, right?). Are you able to find any interesting patterns or associations in the words that the model found useful when distinguishing real news from fake news? You are welcome to use either 2-dimensional or 3-dimensional embedding. Comment on at least 5 words whose location in the embedding you find interpretable.</p>
 <p>I’d suggest that you create an embedding in a relatively large number of dimensions (say, 10) and then use PCA to reduce the dimension down to a visualizable number. This procedure was demonstrated in lecture.</p>
+<section id="tip-taking-images-out-of-colab" class="level3">
+<h3 class="anchored" data-anchor-id="tip-taking-images-out-of-colab">Tip: Taking images out of Colab</h3>
+<p>You can check any generated files from the “Files” tab on the left pane. The default working directory you will see is <code>/content</code>, and you will be able to download the <code>iframe_figures/</code> directory (if you use the <code>iframe</code> renderer for <code>plotly</code>) and any PNG files. If you don’t see them, hit the “refersh” button (the second icon under the File pane)!</p>
+<p><img src="files.png" class="img-fluid"></p>
+</section>
 </section>
 </section>
 <section id="specifications" class="level1">
