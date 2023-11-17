@@ -223,7 +223,7 @@ u_{-1, j}^k = u_{N, j}^k = u_{i, -1}^k = u_{i, N}^k = 0.
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>u0[<span class="bu">int</span>(N<span class="op">/</span><span class="dv">2</span>), <span class="bu">int</span>(N<span class="op">/</span><span class="dv">2</span>)] <span class="op">=</span> <span class="fl">1.0</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>plt.imshow(u0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
-<pre><code>&lt;matplotlib.image.AxesImage at 0x147738e10&gt;</code></pre>
+<pre><code>&lt;matplotlib.image.AxesImage at 0x14595f5d0&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-3-output-2.png" width="435" height="414"></p>
@@ -243,7 +243,7 @@ u_{-1, j}^k = u_{N, j}^k = u_{i, -1}^k = u_{i, N}^k = 0.
 </section>
 <section id="sparse-matrix" class="level2">
 <h2 class="anchored" data-anchor-id="sparse-matrix">2. Sparse matrix</h2>
-<p>In fact, the performance of Part 1 is supposed to be excruciatingly slow. While we can use the underlying optimized matrix multiplication routine from BLAS (basic linear algebra subprograms), it is not particularly effective here, as the matrix <code>A</code> has less than <span class="math inline">\(5N^2\)</span> nonzero elements out of <span class="math inline">\(N^4\)</span> elements. Most of operations are wasted for computing zeros. Let’s use the data structure that exploits a lot of zeros in the matrix <code>A</code>: sparse matrix data structures. The <code>scipy</code> package holds useful sparse matrices. Since we know that the matrix <code>A</code> is pentadiagonal, we can use <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.dia_matrix.html#scipy.sparse.dia_matrix"><code>dia_matrix</code></a> to only use <span class="math inline">\(O(N^2)\)</span> space for the matrix, and only take <span class="math inline">\(O(N^2)\)</span> time for each update.</p>
+<p>In fact, the performance of Part 1 is supposed to be excruciatingly slow. While we can use the underlying optimized matrix multiplication routine from BLAS (basic linear algebra subprograms), it is not particularly effective here, as the matrix <code>A</code> has less than <span class="math inline">\(5N^2\)</span> nonzero elements out of <span class="math inline">\(N^4\)</span> elements. Most of operations are wasted for computing zeros. Let’s use the data structure that exploits a lot of zeros in the matrix <code>A</code>: sparse matrix data structures. The <code>scipy</code> package holds useful sparse matrices. Since we know that the matrix <code>A</code> is pentadiagonal, we can use <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.dia_matrix.html#scipy.sparse.dia_matrix"><code>dia_matrix</code></a> to only use <span class="math inline">\(O(N^2)\)</span> space for the matrix, and only take <span class="math inline">\(O(N^2)\)</span> time for each update.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>Let’s define <code>A_dia_matrix</code> as the matrix <code>A</code> in a sparse format and repeat Part 1.</p>
 <p>Run the code for 2700 iterations. How long does it take? Visualize the diffusion of heat every 300 iterations.</p>
 </section>
@@ -331,7 +331,13 @@ u_{-1, j}^k = u_{N, j}^k = u_{i, -1}^k = u_{i, N}^k = 0.
 </section>
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>There are several sparse matrix representations for more general sparsity patterns, including CSR (Compressed Sparse Row), CSC (Compressed Sparse Column), COO (COOrdinate format), etc.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

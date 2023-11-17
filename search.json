@@ -235,7 +235,7 @@
     "href": "posts/hw5/index.html",
     "title": "Homework 5: Heat Diffusion",
     "section": "",
-    "text": "In this blog assignment, you will conduct a simulation of two-dimensional heat diffusion in various ways.\nIn the lecture notes, we represented the steps to simulate one-dimensional heat diffusion as a sequence of matrix-vector multiplications. Let’s expand it to two dimensions.\nIn two-dimensions, the heat equation reads: \\[\\frac{\\partial f(x, t)}{\\partial t} = \\frac{\\partial^2 f}{\\partial x^2 } + \\frac{\\partial^2 f}{\\partial y^2 }\\;.\\] Using a similar discretization scheme as in the one-dimensional case, let’s put: \\[\nx_i = i \\Delta x,\\;\\; y_j = j \\Delta y,\\;\\; t_k = k \\Delta t,\n\\] for \\(i = 0, \\cdots, N-1\\); \\(j = 0, \\cdots, N-1\\); and \\(k = 0, 1, 2 \\cdots\\).\nWhen we define \\(u_{i, j}^k = f(x_i, y_j, t_k)\\), the update equation in discrete time can be represented as: \\[\nu_{i, j}^{k+1} \\approx u_{i, j}^k + \\epsilon \\left(u_{i+1, j}^k  + u_{i-1, j}^k + u_{i, j+1}^k + u_{i, j-1}^k - 4 u_{i, j}^k\\right),\n\\] where \\(\\epsilon\\) is a small parameter. The boundary condition can be constructed to allow heat to escape, as follows: \\[\nu_{-1, j}^k = u_{N, j}^k = u_{i, -1}^k = u_{i, N}^k = 0.\n\\] We are not explicitly allocating space for \\(u_{-1, j}^k\\), \\(u_{N, j}^k\\), \\(u_{i, -1}^k\\), or \\(u_{i, N}^k\\).\nFor this homework, we will use:\nN = 101\nepsilon = 0.2\nand we will use a similar initial condition as in the 1D case: putting 1 unit of heat at the midpoint.\nimport numpy as np\nfrom matplotlib import pyplot as plt\n# construct initial condition: 1 unit of heat at midpoint. \nu0 = np.zeros((N, N))\nu0[int(N/2), int(N/2)] = 1.0\nplt.imshow(u0)\n\n&lt;matplotlib.image.AxesImage at 0x147738e10&gt;"
+    "text": "In this blog assignment, you will conduct a simulation of two-dimensional heat diffusion in various ways.\nIn the lecture notes, we represented the steps to simulate one-dimensional heat diffusion as a sequence of matrix-vector multiplications. Let’s expand it to two dimensions.\nIn two-dimensions, the heat equation reads: \\[\\frac{\\partial f(x, t)}{\\partial t} = \\frac{\\partial^2 f}{\\partial x^2 } + \\frac{\\partial^2 f}{\\partial y^2 }\\;.\\] Using a similar discretization scheme as in the one-dimensional case, let’s put: \\[\nx_i = i \\Delta x,\\;\\; y_j = j \\Delta y,\\;\\; t_k = k \\Delta t,\n\\] for \\(i = 0, \\cdots, N-1\\); \\(j = 0, \\cdots, N-1\\); and \\(k = 0, 1, 2 \\cdots\\).\nWhen we define \\(u_{i, j}^k = f(x_i, y_j, t_k)\\), the update equation in discrete time can be represented as: \\[\nu_{i, j}^{k+1} \\approx u_{i, j}^k + \\epsilon \\left(u_{i+1, j}^k  + u_{i-1, j}^k + u_{i, j+1}^k + u_{i, j-1}^k - 4 u_{i, j}^k\\right),\n\\] where \\(\\epsilon\\) is a small parameter. The boundary condition can be constructed to allow heat to escape, as follows: \\[\nu_{-1, j}^k = u_{N, j}^k = u_{i, -1}^k = u_{i, N}^k = 0.\n\\] We are not explicitly allocating space for \\(u_{-1, j}^k\\), \\(u_{N, j}^k\\), \\(u_{i, -1}^k\\), or \\(u_{i, N}^k\\).\nFor this homework, we will use:\nN = 101\nepsilon = 0.2\nand we will use a similar initial condition as in the 1D case: putting 1 unit of heat at the midpoint.\nimport numpy as np\nfrom matplotlib import pyplot as plt\n# construct initial condition: 1 unit of heat at midpoint. \nu0 = np.zeros((N, N))\nu0[int(N/2), int(N/2)] = 1.0\nplt.imshow(u0)\n\n&lt;matplotlib.image.AxesImage at 0x14595f5d0&gt;"
   },
   {
     "objectID": "posts/hw5/index.html#with-matrix-multiplication",
@@ -249,7 +249,7 @@
     "href": "posts/hw5/index.html#sparse-matrix",
     "title": "Homework 5: Heat Diffusion",
     "section": "2. Sparse matrix",
-    "text": "2. Sparse matrix\nIn fact, the performance of Part 1 is supposed to be excruciatingly slow. While we can use the underlying optimized matrix multiplication routine from BLAS (basic linear algebra subprograms), it is not particularly effective here, as the matrix A has less than \\(5N^2\\) nonzero elements out of \\(N^4\\) elements. Most of operations are wasted for computing zeros. Let’s use the data structure that exploits a lot of zeros in the matrix A: sparse matrix data structures. The scipy package holds useful sparse matrices. Since we know that the matrix A is pentadiagonal, we can use dia_matrix to only use \\(O(N^2)\\) space for the matrix, and only take \\(O(N^2)\\) time for each update.\nLet’s define A_dia_matrix as the matrix A in a sparse format and repeat Part 1.\nRun the code for 2700 iterations. How long does it take? Visualize the diffusion of heat every 300 iterations."
+    "text": "2. Sparse matrix\nIn fact, the performance of Part 1 is supposed to be excruciatingly slow. While we can use the underlying optimized matrix multiplication routine from BLAS (basic linear algebra subprograms), it is not particularly effective here, as the matrix A has less than \\(5N^2\\) nonzero elements out of \\(N^4\\) elements. Most of operations are wasted for computing zeros. Let’s use the data structure that exploits a lot of zeros in the matrix A: sparse matrix data structures. The scipy package holds useful sparse matrices. Since we know that the matrix A is pentadiagonal, we can use dia_matrix to only use \\(O(N^2)\\) space for the matrix, and only take \\(O(N^2)\\) time for each update.1\nLet’s define A_dia_matrix as the matrix A in a sparse format and repeat Part 1.\nRun the code for 2700 iterations. How long does it take? Visualize the diffusion of heat every 300 iterations."
   },
   {
     "objectID": "posts/hw5/index.html#with-numba",
@@ -292,6 +292,13 @@
     "title": "Homework 5: Heat Diffusion",
     "section": "Writing",
     "text": "Writing\n\nThe blog post is written in tutorial format, in engaging and clear English. Grammar and spelling errors are acceptable within reason."
+  },
+  {
+    "objectID": "posts/hw5/index.html#footnotes",
+    "href": "posts/hw5/index.html#footnotes",
+    "title": "Homework 5: Heat Diffusion",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nThere are several sparse matrix representations for more general sparsity patterns, including CSR (Compressed Sparse Row), CSC (Compressed Sparse Column), COO (COOrdinate format), etc.↩︎"
   },
   {
     "objectID": "posts/hw3/index.html",
