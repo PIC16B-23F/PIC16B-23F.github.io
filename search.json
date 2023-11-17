@@ -231,6 +231,69 @@
     "text": "Writing\n\nThe blog post is written in tutorial format, in engaging and clear English. Grammar and spelling errors are acceptable within reason.\nThe blog post explains clearly how to set up the project, run the scraper, and access the results.\nThe blog post explains how each of the three parse methods works.\nBlog post has a descriptive title."
   },
   {
+    "objectID": "posts/hw5/index.html",
+    "href": "posts/hw5/index.html",
+    "title": "Homework 5: Heat Diffusion",
+    "section": "",
+    "text": "In this blog assignment, you will conduct a simulation of two-dimensional heat diffusion in various ways.\nIn the lecture notes, we represented the steps to simulate one-dimensional heat diffusion as a sequence of matrix-vector multiplications. Let’s expand it to two dimensions.\nIn two-dimensions, the heat equation reads: \\[\\frac{\\partial f(x, t)}{\\partial t} = \\frac{\\partial^2 f}{\\partial x^2 } + \\frac{\\partial^2 f}{\\partial y^2 }\\;.\\] Using a similar discretization scheme as in the one-dimensional case, let’s put: \\[\nx_i = i \\Delta x,\\;\\; y_j = j \\Delta y,\\;\\; t_k = k \\Delta t,\n\\] for \\(i = 0, \\cdots, N-1\\); \\(j = 0, \\cdots, N-1\\); and \\(k = 0, 1, 2 \\cdots\\).\nWhen we define \\(u_{i, j}^k = f(x_i, y_j, t_k)\\), the update equation in discrete time can be represented as: \\[\nu_{i, j}^{k+1} \\approx u_{i, j}^k + \\epsilon \\left(u_{i+1, j}^k  + u_{i-1, j}^k + u_{i, j+1}^k + u_{i, j-1}^k - 4 u_{i, j}^k\\right),\n\\] where \\(\\epsilon\\) is a small parameter. The boundary condition can be constructed to allow heat to escape, as follows: \\[\nu_{-1, j}^k = u_{N, j}^k = u_{i, -1}^k = u_{i, N}^k = 0.\n\\] We are not explicitly allocating space for \\(u_{-1, j}^k\\), \\(u_{N, j}^k\\), \\(u_{i, -1}^k\\), or \\(u_{i, N}^k\\).\nFor this homework, we will use:\nN = 101\nepsilon = 0.2\nand we will use a similar initial condition as in the 1D case: putting 1 unit of heat at the midpoint.\nimport numpy as np\nfrom matplotlib import pyplot as plt\n# construct initial condition: 1 unit of heat at midpoint. \nu0 = np.zeros((N, N))\nu0[int(N/2), int(N/2)] = 1.0\nplt.imshow(u0)\n\n&lt;matplotlib.image.AxesImage at 0x147738e10&gt;"
+  },
+  {
+    "objectID": "posts/hw5/index.html#with-matrix-multiplication",
+    "href": "posts/hw5/index.html#with-matrix-multiplication",
+    "title": "Homework 5: Heat Diffusion",
+    "section": "1. With matrix multiplication",
+    "text": "1. With matrix multiplication\nAs in the linear algebra lecture, construct the matrix A so that the second term of the update equation is equivalent to a matrix-vector multiplication, where the vector is created by flattening the current solution \\(u_{i, j}^k\\). Each iteration of the update is:\nu = u + epsilon * (A @ u.flatten()).reshape((N, N))\nThat is, we view \\(u_{i, j}^k\\) as the element with index \\(N \\times i + j\\) in a vector of length \\(N^2\\). You must strictly follow the indexing used in the update equation above. The matrix A has the size of \\(N^2 \\times N^2\\), without all-zero rows or all-zero columns.\nHint. The matrix is pentadiagonal — only five diagonals contain nonzero values: the main diagonal, the first upper and lower diagonal, and the \\(N\\)-th upper and lower diagonal. Don’t forget to add some zeros to the first upper and lower diagonal, as only \\(N(N-1)\\) of values on those diagonals are nonzero.\nRun the code for 2700 iterations. How long does it take? Visualize the diffusion of heat every 300 iterations. Since our grading is PDF-based, please use a 3x3 grid of 2D heatmaps or contour plots. You are welcome to create an animation later. Since we want to compare computation time between multiple methods, we should not count the time needed for visualization. Thus, it is recommended to store the intermediate solutions in a separate array.\nAt the end of the run, your solution should be symmetric and invariant under 90-degree rotations. It should look like:\n\nbut not like:"
+  },
+  {
+    "objectID": "posts/hw5/index.html#sparse-matrix",
+    "href": "posts/hw5/index.html#sparse-matrix",
+    "title": "Homework 5: Heat Diffusion",
+    "section": "2. Sparse matrix",
+    "text": "2. Sparse matrix\nIn fact, the performance of Part 1 is supposed to be excruciatingly slow. While we can use the underlying optimized matrix multiplication routine from BLAS (basic linear algebra subprograms), it is not particularly effective here, as the matrix A has less than \\(5N^2\\) nonzero elements out of \\(N^4\\) elements. Most of operations are wasted for computing zeros. Let’s use the data structure that exploits a lot of zeros in the matrix A: sparse matrix data structures. The scipy package holds useful sparse matrices. Since we know that the matrix A is pentadiagonal, we can use dia_matrix to only use \\(O(N^2)\\) space for the matrix, and only take \\(O(N^2)\\) time for each update.\nLet’s define A_dia_matrix as the matrix A in a sparse format and repeat Part 1.\nRun the code for 2700 iterations. How long does it take? Visualize the diffusion of heat every 300 iterations."
+  },
+  {
+    "objectID": "posts/hw5/index.html#with-numba",
+    "href": "posts/hw5/index.html#with-numba",
+    "title": "Homework 5: Heat Diffusion",
+    "section": "3. With numba",
+    "text": "3. With numba\nNow, let’s use numba to solve the same problem, explicitly writing a nested for-loop, rather than a matrix multiplication. We will accelerate the function with @jit. As in the previous sections, the for loop should go through every values in range(N), and do some floating-point operations for every index.\nRun the code for 2700 iterations. How long does it take? It is a good idea to first run it for a small number of iterations to get it compiled, and then run it again with the full 2700 iterations to get high performance with precompiled code. It is possible to make it faster than Part 2, excluding the compilation time. Visualize the diffusion of heat every 300 iterations."
+  },
+  {
+    "objectID": "posts/hw5/index.html#comparison",
+    "href": "posts/hw5/index.html#comparison",
+    "title": "Homework 5: Heat Diffusion",
+    "section": "4. Comparison",
+    "text": "4. Comparison\nCompare the implementation and performances of the three methods. Which one is the fastest? Which one was easier for you to write?"
+  },
+  {
+    "objectID": "posts/hw5/index.html#format",
+    "href": "posts/hw5/index.html#format",
+    "title": "Homework 5: Heat Diffusion",
+    "section": "Format",
+    "text": "Format\n\nAs always, please submit the PDF printout of your blog post and any code you wrote."
+  },
+  {
+    "objectID": "posts/hw5/index.html#coding-problem",
+    "href": "posts/hw5/index.html#coding-problem",
+    "title": "Homework 5: Heat Diffusion",
+    "section": "Coding Problem",
+    "text": "Coding Problem\n\nPart 1\n\nThe matrix A is constructed correctly.\n\n\nThe matrix A has the size of \\(N^2 \\times N^2\\), without all-zero rows or all-zero columns.\n\n\nThe visualized solution appears correct – the solution should be symmetric, invariant under a 90-degree rotation.\nThe time elapsed is shown.\nYou must use the same indexing as given in the update equation.\n\n\n\nPart 2\n\nThe sparse matrix A_dia_matrix is constructed correctly.\nThe time elapsed is shown.\nIt should be at least 100x faster than Part 1.\nThe visualized solution appears correct.\nYou must use the same indexing as given in the update equation.\n\n\n\nPart 3\n\nThe for loop is constructed correctly.\n\n\nIt must go through all the indexes, every values in range(N), and do some floating-point operation for every index.\n\n\n@jit is used for just-in-time compilation.\nIt should be at least 100x faster than Part 1.\nThe visualized solution appears correct.\nYou must use the same indexing as given in the update equation.\n\n\n\nPart 4\n\nThe three implementations and their performances are compared."
+  },
+  {
+    "objectID": "posts/hw5/index.html#style-and-documentation",
+    "href": "posts/hw5/index.html#style-and-documentation",
+    "title": "Homework 5: Heat Diffusion",
+    "section": "Style and Documentation",
+    "text": "Style and Documentation\n\nCode throughout is written using minimal repetition and clean style.\nPlease make sure to include useful comments and detailed explanations for each of your code blocks.\nAny repeated operations should be enclosed in functions, regardless of whether they are explicitly required in the instructions."
+  },
+  {
+    "objectID": "posts/hw5/index.html#writing",
+    "href": "posts/hw5/index.html#writing",
+    "title": "Homework 5: Heat Diffusion",
+    "section": "Writing",
+    "text": "Writing\n\nThe blog post is written in tutorial format, in engaging and clear English. Grammar and spelling errors are acceptable within reason."
+  },
+  {
     "objectID": "posts/hw3/index.html",
     "href": "posts/hw3/index.html",
     "title": "Homework 3: Image Classification",
@@ -452,6 +515,6 @@
     "href": "index.html",
     "title": "PIC16B-23F",
     "section": "",
-    "text": "Homework 4: Fake News Classification\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nNov 8, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHomework 3: Image Classification\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nOct 30, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHomework 2: Web Scraping\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nOct 14, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHomework 1: Data Wrangling and Visualization\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nOct 7, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHomework 0\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nOct 2, 2023\n\n\n\n\n\n\n  \n\n\n\n\nCreating Posts\n\n\n\n\n\n\n\nWeek 0\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHello, Quarto\n\n\n\n\n\n\n\nWeek 0\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\n\n\n\n\nNo matching items"
+    "text": "Homework 5: Heat Diffusion\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nNov 17, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHomework 4: Fake News Classification\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nNov 8, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHomework 3: Image Classification\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nOct 30, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHomework 2: Web Scraping\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nOct 14, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHomework 1: Data Wrangling and Visualization\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nOct 7, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHomework 0\n\n\n\n\n\n\n\nHomework\n\n\n\n\n\n\n\n\n\n\n\nOct 2, 2023\n\n\n\n\n\n\n  \n\n\n\n\nCreating Posts\n\n\n\n\n\n\n\nWeek 0\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\n\n\n\n\n  \n\n\n\n\nHello, Quarto\n\n\n\n\n\n\n\nWeek 0\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2023\n\n\n\n\n\n\nNo matching items"
   }
 ]
